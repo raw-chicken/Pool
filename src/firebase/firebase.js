@@ -59,9 +59,9 @@ export function createGroup(driver, maxCapacity, description, eventID) {
   };
 
   // Get a key for a new Post.
-  const res1 = push(child(ref(database), 'groups'), groupID);
-  const res2 = push(child(ref(database), 'events/' + eventID + '/groups'), groupID);
-  const res3 = push(child(ref(database), 'chat'), groupID);
+  // const res1 = push(child(ref(database), 'groups'), groupID);
+  // const res2 = push(child(ref(database), 'events/' + eventID + '/groups'), groupID);
+  // const res3 = push(child(ref(database), 'chat'), groupID);
 
   // Write the new post's data simultaneously in the posts list and the user's post list.
   const updates = {};

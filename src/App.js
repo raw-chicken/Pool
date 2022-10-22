@@ -13,6 +13,7 @@ function App() {
         <Route exact path='/' element={<StartPage />} />
         <Route path='/new' element={<NewEventPage />} />
         <Route path='/event' element={<EventPage />} />
+        <Route exact path='/chat' element={<Chat />} />
       </Routes>
     </Router>
   );
