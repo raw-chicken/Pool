@@ -12,7 +12,8 @@ function App() {
       <Routes>
         <Route exact path='/' element={<StartPage />} />
         <Route path='/new' element={<NewEventPage />} />
-        <Route path='/event' element={<EventPage />} />
+        {/* <Route path='/event' element={<EventPage />} /> */}
+        <Route exact path='/event/:id' component={NewEventPage} />
         <Route exact path='/chat' element={<Chat />} />
       </Routes>
     </Router>

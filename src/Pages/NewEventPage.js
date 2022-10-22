@@ -6,18 +6,26 @@ import { Stack } from '@mui/system';
 import { Button, Grid } from '@mui/material';
 import { createEvent } from '../firebase/firebase.js';
 import { AnimatePresence } from "framer-motion";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 function NewEventPage() {
     document.body.style = 'background: white';
-    // const [name, description, date, time] = React.useState("1","2","3","4");
     const [name, setName] = React.useState("");
     const [desc, setDesc] = React.useState("");
     const [date, setDate] = React.useState("");
     const [time, setTime] = React.useState("");
 
+    // component={Link} 
+    //           to={{ pathname: '/event', state: { foo: 'bar'} }}
+    const navigate = useNavigate();
+    const handleOnClick = () => {
+      const eventID = createEvent(name, desc, date, time)
+      navigate(`/event/${eventID}`);
+    };
+
     return (
+
       <Box>
         
       <AnimatePresence>
@@ -110,9 +118,7 @@ function NewEventPage() {
                 }
               }}
               margin="normal"
-              component={Link} 
-              to="/event"
-              onClick={()=>createEvent(name, desc, date, time)}
+              onClick={()=>handleOnClick()}
             >
               Create Event
             </Button>

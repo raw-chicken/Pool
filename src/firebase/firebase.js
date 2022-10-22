@@ -42,6 +42,8 @@ export function createEvent(name, desc, date, time) {
     date: date,
     time: time,
   });
+
+  return eventID;
 }
 
 // Edit event
