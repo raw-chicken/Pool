@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+/* general stuff with flex boxes */
+.stacked {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items:flex-start;
+
+  justify-content: center;
+  align-items: center;
+}
+
+/*button not uppercase*/
+.btn {
+  text-transform: unset !important;
+}
