@@ -3,6 +3,7 @@ import './css/App.css';
 
 import StartPage from './Pages/StartPage.js'
 import NewEventPage from './Pages/NewEventPage.js'
+import EventPage from './Pages/EventPage.js'
 import Chat from './Pages/Chat.js';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={<StartPage />} />
         <Route path='/new' element={<NewEventPage />} />
+        <Route path='/event' element={<EventPage event={"something"}/>} />
       </Routes>
     </Router>
   );
