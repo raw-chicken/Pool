@@ -2,18 +2,17 @@ import Button from '@mui/material/Button';
 import '../css/App.css';
 import React, { Component } from 'react';
 
-export default class EventPage extends Component {
+export default class Group extends Component {
 
     state = {
-        name: "Event Name",
-        description: "yolo"
+        driver: "",
+        riders: []
       }
 
     render() { 
         return( 
             <div>
-            <h1>{this.state.name}</h1>
-            <p>{this.state.description}</p>
+            <h3>{this.state.driver}</h3>
             </div>
         )
     }

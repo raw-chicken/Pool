@@ -10,7 +10,7 @@ function StartPage() {
             <img src = "pool-transparent.png" alt="logo"></img>
 
             <Button variant="contained" size="large"
-            sx={{color:"black", backgroundColor:"white"}} className="btn">
+            sx={{color:"black", backgroundColor:"#F7F7F6"}} className="btn">
                 Create New Event
             </Button>
         </div>

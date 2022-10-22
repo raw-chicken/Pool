@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={<StartPage />} />
         <Route path='/new' element={<NewEventPage />} />
-        <Route path='/event' element={<EventPage event={"something"}/>} />
+        <Route path='/event' element={<EventPage />} />
       </Routes>
     </Router>
   );
