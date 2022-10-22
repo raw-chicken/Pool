@@ -40,7 +40,7 @@ class EventPage extends Component {
     )
 
     return( 
-        <div>
+      <div>
         <Header/>
 
           <div className='content fill-stack'>
@@ -73,8 +73,8 @@ class EventPage extends Component {
             </Button>
           </div>
         </div>
-      )
-    }
+    )
+  }
     // console.log(this.props.match.params.id);  
 }
 

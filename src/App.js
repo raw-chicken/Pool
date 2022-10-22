@@ -22,7 +22,7 @@ function App() {
             <Route path='/new' element={<NewEventPage />} />
             {/* <Route path='/event' element={<EventPage />} /> */}
             <Route path='/event/:id' element={<EventPage />} />
-            <Route exact path='/event/:id/chat' element={<Chat />} />
+            <Route exact path='/event/:id/chat/:gid' element={<Chat />} />
           </Routes>
         </Router>
       </motion.div> 

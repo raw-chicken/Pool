@@ -3,12 +3,13 @@ import { Typography } from '@mui/material';
 import React, { Component } from 'react';
 import '../css/App.css';
 import { getGroupInfo } from '../firebase/firebase';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default class Group extends Component {
 
   constructor(props) {
     super(props)
-    console.log(props);
     this.state = {
       update: false,
       id: props.groupID,
@@ -17,18 +18,15 @@ export default class Group extends Component {
       passengers: {}
     };
 
-    console.log("Getting group info of", props.groupID);
     getGroupInfo(props.groupID, this);
-    console.log(this);
   }
 
   render() {
     let count = 0;
-    console.log(Object.values(this.state.passengers));
     const ridersDisplay = Object.values(this.state.passengers).map((rider) =>
       <p className="item" key={count++}>{this.state.update && rider !== this.state.driver && rider}</p>
     );
-    console.log(this.state.capacity)
+
 
     return( 
       <div className="box p3">
