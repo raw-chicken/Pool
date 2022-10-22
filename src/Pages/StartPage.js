@@ -32,7 +32,6 @@ function StartPage(props) {
           variant="contained" 
           size="large"
           sx={{
-            color:"black", 
             backgroundColor:"#F7F7F6",
             borderRadius: 25,
             ':hover': {
