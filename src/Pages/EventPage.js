@@ -9,57 +9,79 @@ import Group from "../Components/Group.js"
 import Header from "../Components/Header.js"
 
 import { useParams } from "react-router-dom";
+import { getEvent } from '../firebase/firebase';
 
-export default class EventPage extends Component {
+function withParams(Component) {
+  return props => <Component {...props} params={useParams()} />;
+}
+
+class EventPage extends Component {
 
   constructor(props) {
-    super(props)
-    this.state = {name: "Event Name", description: "description", groups:[]}
+    super(props);
+    let { id } = this.props.params;
+    console.log(id);
+    let metadata = getEvent(id);
+    // console.log("THIS IS A TEST: ", test)
+    this.state = {
+      name: metadata.name,
+      description: metadata.description,
+      groups: metadata.groups,
+    }
+    // {name: "Event Name", description: "description", groups:[]};
   }
 
+  // componentDidMount() {
+  //   let { id } = this.props.params;
+  //   console.log(id);
+
+  //   // this.state = {name: "Event Name", description: "description", groups:[]}
+  // }
+
   render() {
- // const { id } = useParams();
   //console.log("ID: ", id);
   // const groupsDisplay = this.state.groups.map((group) =>
   //   <Group />
   // )
+  console.log(this.state);
 
   return( 
       <div>
       <Header/>
 
-      <div className='content fill-stack'>
-        <div>
-          <h1>Event Name</h1>
-          <p>description</p>
+        <div className='content fill-stack'>
+          <div>
+            <h1> { this.state.name } </h1>
+            <p>{ this.state.description } </p>
+          </div>
+
+          {/* {groupsDisplay} */}
+
+          {/* should add a new group bc new driver on click */}
+          <Button 
+          variant="contained" 
+          size="large"
+          sx={{
+            color:"#F7F7F6", 
+            backgroundColor:"#77BB3F",
+            borderRadius: 10,
+            ':hover': {
+              backgroundColor: '#77BB3F',
+            }
+          }} 
+          className="btn"
+          >
+          <Typography
+            variant="h7"
+          >
+            I'm a driver
+          </Typography>
+          </Button>
         </div>
-
-        {/* {groupsDisplay} */}
-
-        {/* should add a new group bc new driver on click */}
-        <Button 
-        variant="contained" 
-        size="large"
-        sx={{
-          color:"#F7F7F6", 
-          backgroundColor:"#77BB3F",
-          borderRadius: 10,
-          ':hover': {
-            backgroundColor: '#77BB3F',
-          }
-        }} 
-        className="btn"
-        >
-        <Typography
-          variant="h7"
-        >
-          I'm a driver
-        </Typography>
-        </Button>
-      </div>
       </div>
     )
   }
    // console.log(this.props.match.params.id);  
 }
 
+export default withParams(EventPage);

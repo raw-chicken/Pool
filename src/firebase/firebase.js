@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, update, push, child, remove } from "firebase/database";
+import { getDatabase, ref, set, update, child, remove, get } from "firebase/database";
 import crypto from "crypto-js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -44,6 +44,24 @@ export function createEvent(name, desc, date, time) {
   });
 
   return eventID;
+}
+
+export function getEvent(eventID) {
+  console.log("GetEVENT");
+  let val = "NOTHING TO SEE HERE";
+  get(ref(database, 'events/' + eventID)).then((snapshot) => {
+    console.log("OwO");
+    if (snapshot.exists()) {
+      console.log("exists")
+      val = snapshot.val();
+      console.log(snapshot.val());
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+  return val;
 }
 
 // Edit event
