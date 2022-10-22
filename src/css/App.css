@@ -54,6 +54,14 @@
   justify-content: center;
 }
 
+.horizontal-stack {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  justify-content: space-between; 
+}
+
 
 /*button not uppercase*/
 .btn {

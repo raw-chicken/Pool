@@ -34,7 +34,7 @@ export default function Header() {
               height: 50,
               width: 100,
             }}
-            src="pool-transparent-large-text.png"
+            src={require("../Assets/pool-transparent-large-text.png")}
           />
         </Button>
     // </Box>
