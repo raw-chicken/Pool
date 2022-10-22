@@ -35,9 +35,12 @@ class EventPage extends Component {
 
   render() {
     let count = 0;
-    const groupsDisplay = Object.keys(this.state.groups).map((group) =>
-      <Group groupID={group} key={count++}/>
-    )
+    let groupsDisplay = undefined;
+    if (this.state.groups !== undefined) {
+      groupsDisplay = Object.keys(this.state.groups).map((group) =>
+        <Group groupID={group} key={count++}/>
+      )
+    }
 
     return( 
       <div>
