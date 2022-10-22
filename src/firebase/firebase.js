@@ -132,6 +132,15 @@ export function removeMember(memberID, groupID) {
   remove(ref(database, 'groups/' + groupID + '/passengers/' + memberID));
 }
 
+export function addMessage(name, text, groupId) {
+  const time = new Date()
+  set(ref(database, 'chats/' + groupId + "/" + time.getTime()), {
+    name: name,
+    text: text
+  })
+}
+
+
 /* End Actions */
 
 /* Listeners */
