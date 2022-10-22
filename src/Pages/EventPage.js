@@ -33,29 +33,11 @@ class EventPage extends Component {
     
   }
 
-  // componentWillMount(){
-  //   // let metadata = getEvent(id);
-  //   // this.state = {
-  //   //   name: metadata.name,
-  //   //   description: metadata.description,
-  //   //   groups: metadata.groups,
-  //   // }
-  // }
-
   render() {
-    const groupsDisplay = Object.keys(this.state.groups);
-    groupsDisplay.map((element) => {
-      // console.log(element);
-      console.log(<Group groupID={element}/>);
-      return <Group groupID={element}/>
-    });
-
-    const groupsDisplay2 = Object.keys(this.state.groups).map((group) =>
-      <Group groupID={group}/>
+    let count = 0;
+    const groupsDisplay = Object.keys(this.state.groups).map((group) =>
+      <Group groupID={group} key={count++}/>
     )
-
-    console.log("BEAUTIFUL STATE", this.state);   
-    console.log(groupsDisplay);
 
     return( 
         <div>
@@ -67,7 +49,7 @@ class EventPage extends Component {
               <p>{ this.state.update && this.state.description } </p>
             </div>
 
-            { groupsDisplay2 }
+            { groupsDisplay }
 
             {/* should add a new group bc new driver on click */}
             <Button 

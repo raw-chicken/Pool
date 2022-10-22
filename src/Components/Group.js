@@ -2,27 +2,38 @@ import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
 import React, { Component } from 'react';
 import '../css/App.css';
+import { getGroupInfo } from '../firebase/firebase';
 
 export default class Group extends Component {
 
   constructor(props) {
     super(props)
-    console.log("TEST", props);
-    console.log('test2', this);
+    console.log(props);
     this.state = {
-      driver: "Driver", riders:[]
+      update: false,
+      id: props.groupID,
+      driver: '',
+      capacity: 0,
+      passengers: {}
     };
+
+    console.log("Getting group info of", props.groupID);
+    getGroupInfo(props.groupID, this);
+    console.log(this);
   }
 
   render() {
-    const ridersDisplay = this.state.riders.map((rider) =>
-      <p className="item">{rider}</p>
+    let count = 0;
+    console.log(Object.values(this.state.passengers));
+    const ridersDisplay = Object.values(this.state.passengers).map((rider) =>
+      <p className="item" key={count++}>{this.state.update && rider !== this.state.driver && rider}</p>
     );
+    console.log(this.state.capacity)
 
     return( 
       <div className="box p3">
-        <h3 className="item">{this.state.driver}</h3>
-        {ridersDisplay}
+        <h3 className="item">{this.state.update && this.state.driver} ({count}/{this.state.update && this.state.capacity})</h3>
+        {this.state.update && ridersDisplay}
         <div className="item">
         <Button 
           variant="contained" 
