@@ -6,6 +6,7 @@ import { Stack } from '@mui/system';
 import { Button, Grid } from '@mui/material';
 
 function NewEventPage() {
+    document.body.style = 'background: white';
 
     return (
       <Box>
