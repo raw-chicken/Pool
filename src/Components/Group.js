@@ -3,8 +3,6 @@ import { Typography } from '@mui/material';
 import React, { Component } from 'react';
 import '../css/App.css';
 import { getGroupInfo } from '../firebase/firebase';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 export default class Group extends Component {
 
