@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue, set, child, push, update } from "firebase/database";
+import { getDatabase, ref, set, update } from "firebase/database";
+import crypto from "crypto-js";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -27,13 +28,19 @@ export const database = getDatabase(app);
 
 // Given a description, create an event
 export function createEvent(name, desc, date, time) {
-  const eventID = -1; // some hashing algorithm
+  const current = new Date();
+  const curr_time = current.toLocaleTimeString("en-US");
+
+  const plain_text = curr_time + name + desc + date + time;
+
+  const hash = crypto.MD5(plain_text).toString()
+  const eventID = hash.substring(0, 7);
+
   set(ref(database, 'events/' + eventID), {
     name: name,
     description: desc,
     date: date,
     time: time,
-    groups: {},
   });
 }
 

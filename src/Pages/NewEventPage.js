@@ -7,11 +7,6 @@ import { Button, Grid } from '@mui/material';
 import { createEvent } from '../firebase/firebase.js';
 import { AnimatePresence } from "framer-motion";
 
-function test(test) {
-    console.log(test);
-}
-
-
 
 function NewEventPage() {
     document.body.style = 'background: white';
@@ -45,25 +40,25 @@ function NewEventPage() {
             justifyContent='center'
           >
             <TextField
-                value={ name }
-                id="standard-basic"
-                label="Event Name"
-                variant="standard"
-                onChange={(e) => {
-                    setName(e.target.value);
-                }}
+              value={ name }
+              id="standard-basic"
+              label="Event Name"
+              variant="standard"
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
             />
 
             <TextField
-                id="standard-multiline-static"
-                label="Description"
-                multiline
-                rows={3}
-                value={ desc }
-                onChange={(e) => {
-                    setDesc(e.target.value);
-                }}
-                // variant="standard"
+              id="standard-multiline-static"
+              label="Description"
+              multiline
+              rows={3}
+              value={ desc }
+              onChange={(e) => {
+                setDesc(e.target.value);
+              }}
+              // variant="standard"
             />
 
             <Box 
