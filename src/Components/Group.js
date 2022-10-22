@@ -4,13 +4,13 @@ import React, { Component } from 'react';
 import '../css/App.css';
 
 export default class Group extends Component {
+
     constructor(props) {
-        super(props);
-       // this.handleMouseMove = this.handleMouseMove.bind(this);
-        this.state = { driver: "Driver", riders: [] };
+        super(props)
+        this.state = {driver: "Driver", riders:[]};
     }
 
-    render() { 
+    render() {
         const ridersDisplay = this.state.riders.map((rider) =>
             <p className="item">{rider}</p>
         );
