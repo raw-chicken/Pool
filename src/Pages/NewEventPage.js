@@ -4,9 +4,19 @@ import Header from '../Components/Header.js';
 import TextField from '@mui/material/TextField';
 import { Stack } from '@mui/system';
 import { Button, Grid } from '@mui/material';
+import { createEvent } from '../firebase/firebase.js';
+
+function test(test) {
+    console.log(test);
+}
 
 function NewEventPage() {
     document.body.style = 'background: white';
+    // const [name, description, date, time] = React.useState("1","2","3","4");
+    const [name, setName] = React.useState("");
+    const [desc, setDesc] = React.useState("");
+    const [date, setDate] = React.useState("");
+    const [time, setTime] = React.useState("");
 
     return (
       <Box>
@@ -29,15 +39,27 @@ function NewEventPage() {
             width='350px'
             justifyContent='center'
           >
-            <TextField id="standard-basic" label="Event Name" variant="standard" />
+            <TextField
+                value={ name }
+                id="standard-basic"
+                label="Event Name"
+                variant="standard"
+                onChange={(e) => {
+                    setName(e.target.value);
+                }}
+            />
 
             <TextField
                 id="standard-multiline-static"
                 label="Description"
                 multiline
                 rows={3}
+                value={ desc }
+                onChange={(e) => {
+                    setDesc(e.target.value);
+                }}
                 // variant="standard"
-              />
+            />
 
             <Box 
               sx={{ 
@@ -54,6 +76,10 @@ function NewEventPage() {
                 InputLabelProps={{
                   shrink: true,
                 }}
+                value={ date }
+                onChange={(e) => {
+                    setDate(e.target.value);
+                }}
               />
               <TextField
                 id="time"
@@ -66,6 +92,10 @@ function NewEventPage() {
                 inputProps={{
                   step: 1800, // 5 min
                 }}
+                value={time}
+                onChange={(e) => {
+                    setTime(e.target.value);
+                }}
                 // sx={{ width: 150 }}
               />
             </Box>
@@ -76,6 +106,7 @@ function NewEventPage() {
                 backgroundColor: '#77BB3F'
               }}
               margin="normal"
+              onClick={()=>createEvent(name, desc, date, time)}
             >
               Create Event
             </Button>

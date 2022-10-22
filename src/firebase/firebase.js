@@ -28,7 +28,7 @@ export const database = getDatabase(app);
 // Given a description, create an event
 export function createEvent(name, desc, date, time) {
   const eventID = -1; // some hashing algorithm
-  set(ref(database, 'event/' + eventID), {
+  set(ref(database, 'events/' + eventID), {
     name: name,
     description: desc,
     date: date,
