@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import { Stack } from '@mui/system';
 import { Box, Button, Grid } from '@mui/material';
 import { createEvent } from '../firebase/firebase.js';
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Link, useNavigate } from 'react-router-dom';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
@@ -37,29 +37,33 @@ function NewEventPage() {
 
     return (
 
-      <Box>
-        
       <AnimatePresence>
-        <Header/>
-        <Grid
-          container
-          spacing={0}
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
-          style={{ 
-            minHeight: '100vh',
-          }}
-          sx={{
-            mx: 'auto'
-          }}
+        <motion.div
+          key="newEventPage"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
         >
-          <div className="content">
-            <Form/>
-          </div>
-        </Grid>
-        </AnimatePresence>
-      </Box>
+          <Header/>
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            style={{ 
+              minHeight: '100vh',
+            }}
+            sx={{
+              mx: 'auto'
+            }}
+          >
+            {/* <div className="content"> */}
+              <Form/>
+            {/* </div> */}
+          </Grid>
+        </motion.div>
+      </AnimatePresence>
 
     );
   }
