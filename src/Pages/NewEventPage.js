@@ -2,9 +2,7 @@ import * as React from 'react';
 import Header from '../Components/Header.js';
 import Form from '../Components/Form.js';
 import { Grid } from '@mui/material';
-import { createEvent } from '../firebase/firebase.js';
 import { AnimatePresence, motion } from "framer-motion";
-import { useNavigate } from 'react-router-dom';
 
 import '../css/Event.css';
 
