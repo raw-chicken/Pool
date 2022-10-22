@@ -1,12 +1,12 @@
 img{
     height: 95%;
     width: 95%;
-    margin-top: 40%;
+    margin-top: 0%;
     margin-bottom: 10%;
 }
 @media (min-width: 400px) {
     img {
-        margin-top: 10%;
+        margin-top: 0%;
         margin-bottom: 5%;
         width:40%;
         height:40%;

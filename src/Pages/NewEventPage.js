@@ -103,7 +103,10 @@ function NewEventPage() {
             <Button 
               variant="contained" 
               sx={{
-                backgroundColor: '#77BB3F'
+                backgroundColor: '#77BB3F',
+                ':hover': {
+                  backgroundColor: '#77BB3F',
+                }
               }}
               margin="normal"
               onClick={()=>createEvent(name, desc, date, time)}
