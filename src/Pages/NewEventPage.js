@@ -6,6 +6,7 @@ import { Stack } from '@mui/system';
 import { Button, Grid } from '@mui/material';
 import { createEvent } from '../firebase/firebase.js';
 import { AnimatePresence } from "framer-motion";
+import { Link } from 'react-router-dom';
 
 
 function NewEventPage() {
@@ -109,6 +110,8 @@ function NewEventPage() {
                 }
               }}
               margin="normal"
+              component={Link} 
+              to="/event"
               onClick={()=>createEvent(name, desc, date, time)}
             >
               Create Event
