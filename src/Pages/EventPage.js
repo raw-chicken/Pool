@@ -54,7 +54,7 @@ class EventPage extends Component {
               <p>{ this.state.update && this.state.description } </p>
             </div>
 
-            { groupsDisplay }
+            {this.state.update && groupsDisplay }
 
             {/* should add a new group bc new driver on click */}
             <Button 

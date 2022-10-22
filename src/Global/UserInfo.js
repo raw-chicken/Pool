@@ -10,12 +10,12 @@ class UserInfo {
     constructor() {
         const newName = prompt("Please insert your name");
         this._userName = newName;
-        const date = new Date()
-        this._userID = crypto.SHA1(newName + date.getDate())
+        let date = new Date();
+        let curr_time = date.toLocaleDateString("en-US");
+        this._userID = crypto.MD5(newName + date).toString().substring(0, 20)
     }
 
     static getInstance() {
-        console.log("get instance")
         if (this.myInstance === undefined) {
             this.myInstance = new UserInfo()
         }
@@ -25,9 +25,9 @@ class UserInfo {
 }
 
 export function getUserId() {
-    return UserInfo.getInstance._userID;
+    return UserInfo.getInstance()._userID;
 }
 
 export function getUserName() {
-    return UserInfo.getInstance()._userName
+    return UserInfo.getInstance()._userName;
 }

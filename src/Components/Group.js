@@ -2,10 +2,13 @@ import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
 import React, { Component } from 'react';
 import '../css/App.css';
-import { getGroupInfo } from '../firebase/firebase';
+import { getGroupInfo, addPassenger } from '../firebase/firebase';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { getUserId, getUserName } from '../Global/UserInfo';
 
+//Join group
+//Make the div clickable (navigates to chat page)
 export default class Group extends Component {
 
   constructor(props) {
@@ -19,6 +22,14 @@ export default class Group extends Component {
     };
 
     getGroupInfo(props.groupID, this);
+  }
+
+  joinOnClick() {
+    const username = getUserName()
+    const userId = getUserId()
+    console.log("clicked")
+    console.log(username, userId)
+    addPassenger(this.state.id, username, userId)
   }
 
   render() {
@@ -66,6 +77,7 @@ export default class Group extends Component {
             }
           }} 
           className="btn"
+          onClick={() => this.joinOnClick()}
           >
           <Typography
             variant="h7"

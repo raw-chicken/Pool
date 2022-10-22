@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, update, child, remove, get } from "firebase/database";
+import { getDatabase, ref, set, update, child, remove, get, push } from "firebase/database";
 import crypto from "crypto-js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -74,7 +74,7 @@ export async function getGroupInfo(groupID, page) {
   await get(ref(database, 'groups/' + groupID)).then((snapshot) => {
     if (snapshot.exists()) {
       val = snapshot.val();
-      console.log("Snapshot:", snapshot.val());
+      console.log("Snapshot:", val);
     } else {
       console.log("No data available");
     }
@@ -91,6 +91,13 @@ export async function getGroupInfo(groupID, page) {
   });
 
   return val;
+}
+
+export async function addPassenger(groupID, userName, userId) {
+  console.log(userId)
+  update(ref(database, 'groups/' + groupID + "/passengers"), {
+    [userId]: userName
+  });
 }
 
 // Edit event
