@@ -58,21 +58,7 @@ class EventPage extends Component {
       groupsDisplay = Object.keys(this.state.groups).map((group) =>
       <AnimatePresence>
       <motion.div key={count++} {...this.getAnimationProps((count + 1) * 0.1)}>
-        <Button
-        variant="contained" 
-            size="large"
-            sx={{
-              color:"#F7F7F6", 
-              backgroundColor:"#77BB3F",
-              borderRadius: 10,
-              ':hover': {
-                backgroundColor: '#77BB3F',
-              }
-            }} 
-            className="btn"
-            >
               <Group groupID={group} key={count++}/>
-            </Button>
             </motion.div>
         </AnimatePresence>
       )

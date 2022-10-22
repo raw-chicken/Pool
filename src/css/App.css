@@ -67,3 +67,11 @@
 .btn {
   text-transform: unset !important;
 }
+
+.m10 {
+  margin: 10px 0px;
+}
+
+.p3 {
+  padding: 3%
+}

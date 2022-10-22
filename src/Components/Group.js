@@ -31,7 +31,20 @@ export default class Group extends Component {
     }
 
     return( 
-      <div className="box p3">
+      <Button
+        variant="contained" 
+            size="large"
+            sx={{
+              color:"black", 
+              backgroundColor:"#F7F7F6",
+              borderRadius: 5,
+              ':hover': {
+                backgroundColor: '#F7F7F6',
+              },
+              margin: 1
+            }} 
+            className=" box btn p3"
+            >
         <h3 className="item">{this.state.update && this.state.driver} ({count}/{this.state.update && this.state.capacity})</h3>
         {this.state.update && ridersDisplay}
         <div className="item">
@@ -72,7 +85,7 @@ export default class Group extends Component {
           </Typography>
         </Button>
         </div>
-      </div>
+        </Button>
     )
   }
 }
