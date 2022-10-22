@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import '../css/App.css';
 import '../css/Start.css';
 
-function StartPage(props) {
+function StartPage() {
   document.body.style = 'background: #77BB3F;';
 
   return (
@@ -32,7 +32,6 @@ function StartPage(props) {
           variant="contained" 
           size="large"
           sx={{
-            color:"black", 
             backgroundColor:"#F7F7F6",
             borderRadius: 25,
             ':hover': {
