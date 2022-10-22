@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 
@@ -34,13 +34,22 @@ function StartPage() {
                     sx={{
                         color:"black", 
                         backgroundColor:"#F7F7F6",
+                        borderRadius: 25,
                         ':hover': {
                             backgroundColor: '#F7F7F6',
                         }
                     }} 
                     className="btn"
                 >
-                    Create New Event
+                    <Typography
+                        variant="h5"
+                        sx={{
+                            fontWeight: 'bold',
+                            color: '#444'
+                        }}
+                    >
+                        Start Planning
+                    </Typography>
                 </Button>
             </div>
         </Grid>

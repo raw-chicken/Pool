@@ -10,6 +10,9 @@ function test(test) {
     console.log(test);
 }
 
+import { AnimatePresence } from "framer-motion";
+
+
 function NewEventPage() {
     document.body.style = 'background: white';
     // const [name, description, date, time] = React.useState("1","2","3","4");
@@ -20,6 +23,8 @@ function NewEventPage() {
 
     return (
       <Box>
+        
+      <AnimatePresence>
         <Header/>
         <Grid
           container
@@ -116,6 +121,7 @@ function NewEventPage() {
 
           </Stack>
         </Grid>
+        </AnimatePresence>
       </Box>
 
     );
