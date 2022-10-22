@@ -23,22 +23,30 @@ const app = initializeApp(firebaseConfig);
 export const database = getDatabase(app);
 
 
-// Actively listen for database changes on new groups and such
-// groups gets info from firebase
-// updateGroups updates state which in turn adds component to page
-// const groups = ref(database, 'event/' + eventID + '/groups');
-// onValue(groups, (snapshot) => {
-//   const data = snapshot.val();
-//   updateGroups(data);
-// });
+/* Actions */
 
 // Given a description, create an event
-export function createEvent(desc) {
+export function createEvent(name, desc, date, time) {
   const eventID = -1; // some hashing algorithm
   set(ref(database, 'event/' + eventID), {
+    name: name,
     description: desc,
+    date: date,
+    time: time,
     groups: {},
   });
+}
+
+// Edit event
+export function editEvent(eventID, name, desc, date, time) {
+  // Write the new post's data simultaneously in the posts list and the user's post list.
+  const updates = {};
+  updates['/events/' + eventID + '/name'] = name;
+  updates['/events/' + eventID + '/description'] = desc;
+  updates['/events/' + eventID + '/date'] = date;
+  updates['/events/' + eventID + '/time'] = time;
+
+  return update(ref(database), updates);
 }
 
 export function createGroup(driver, maxCapacity, description, eventID) {
@@ -61,3 +69,28 @@ export function createGroup(driver, maxCapacity, description, eventID) {
 
   return update(ref(database), updates);
 }
+
+/* End Actions */
+
+/* Listeners */
+
+// Actively listen for database changes on new groups and such
+// groups gets info from firebase
+// updateGroups updates state which in turn adds component to page
+// const groups = ref(database, 'event/' + eventID + '/groups');
+// onValue(groups, (snapshot) => {
+//   const data = snapshot.val();
+//   updateGroups(data);
+// });
+
+
+// Message listeners
+// const messages = ref(database, 'chat/' + groupID);
+// onValue(groups, (snapshot) => {
+//   const data = snapshot.val();
+//   updateMessages(data);
+// });
+
+
+
+/* End Listeners */
