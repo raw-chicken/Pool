@@ -25,7 +25,7 @@ function StartPage() {
         }}
       >
         
-        {/* <motion.div 
+        <motion.div 
           key="mainPage"
           initial={{ opacity: 0 }}
           animate={{
@@ -37,7 +37,7 @@ function StartPage() {
             //   ease: [0.6, -0.05, 0.01, 0.99],
             // }
           }}
-        > */}
+        >
         <div className="stacked">
           
           <motion.img 
@@ -53,7 +53,6 @@ function StartPage() {
               }
             }}
           >
-          {/* <img src = "pool-transparent.png" alt="logo"></img> */}
           </motion.img>
 
           <motion.div 
@@ -96,7 +95,7 @@ function StartPage() {
           </motion.div>
 
         </div>
-        {/* </motion.div> */}
+        </motion.div>
       </Grid>
     </AnimatePresence>
   );
