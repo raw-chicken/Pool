@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, update } from "firebase/database";
+import { getDatabase, ref, set, update, push, child, remove } from "firebase/database";
 import crypto from "crypto-js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -34,7 +34,7 @@ export function createEvent(name, desc, date, time) {
   const plain_text = curr_time + name + desc + date + time;
 
   const hash = crypto.MD5(plain_text).toString()
-  const eventID = hash.substring(0, 7);
+  let eventID = hash.substring(0, 7);
 
   set(ref(database, 'events/' + eventID), {
     name: name,
@@ -58,25 +58,60 @@ export function editEvent(eventID, name, desc, date, time) {
   return update(ref(database), updates);
 }
 
-export function createGroup(driver, maxCapacity, description, eventID) {
-  const groupID = -1; // some hashing algorithm
+export function createGroup(driver, maxCapacity, desc, eventID) {
+  const current = new Date();
+  const curr_time = current.toLocaleTimeString("en-US");
+
+  const plain_text = curr_time + driver + maxCapacity + desc + eventID;
+
+  const hash = crypto.MD5(plain_text).toString()
+  const groupID = hash.substring(0, 7);
+
   // A post entry.
+  const groupData = {
+    driver: driver,
+    maxCapacity: maxCapacity,
+    desc: desc,
+  };
+
+  set(ref(database, 'events/groups/' + groupID), true);
+  set(ref(database, 'groups/' + groupID), groupData);
+
+  return groupID;
+}
+
+export function editGroupMetadata(driver, maxCapacity, description, groupID) {
   const groupData = {
     driver: driver,
     maxCapacity: maxCapacity,
     desc: description
   };
 
-  // Get a key for a new Post.
-  // const res1 = push(child(ref(database), 'groups'), groupID);
-  // const res2 = push(child(ref(database), 'events/' + eventID + '/groups'), groupID);
-  // const res3 = push(child(ref(database), 'chat'), groupID);
+  set(ref(database, 'groups/' + groupID), groupData);
+}
 
-  // Write the new post's data simultaneously in the posts list and the user's post list.
-  const updates = {};
-  updates['/groups/' + groupID] = groupData;
+export function deleteGroup(eventID, groupID) {
+  remove(ref(database, 'events/' + eventID + '/groups/' + groupID));
+  remove(ref(database, 'groups/' + groupID));
+  remove(ref(database, 'chats/' + groupID));
+}
 
-  return update(ref(database), updates);
+export function addMember(name, groupID) {
+  const current = new Date();
+  const curr_time = current.toLocaleTimeString("en-US");
+
+  const plain_text = curr_time + name + groupID;
+
+  const hash = crypto.MD5(plain_text).toString()
+  const memberID = hash.substring(0, 7);
+
+  set(ref(database, 'groups/' + groupID + '/passengers/' + memberID), name);
+
+  return memberID;
+}
+
+export function removeMember(memberID, groupID) {
+  remove(ref(database, 'groups/' + groupID + '/passengers/' + memberID));
 }
 
 /* End Actions */
