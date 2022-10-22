@@ -8,35 +8,23 @@ import Button from '@mui/material/Button';
 import Group from "../Components/Group.js"
 import Header from "../Components/Header.js"
 
-export default class EventPage extends Component {
+function EventPage() {
 
-  //can pass things in
-  constructor(props) {
-    super(props);
-    // let { id } = useParams();
-    // this.handleMouseMove = this.handleMouseMove.bind(this);
-    this.state = { name: "Event Name", description: "event description", groups:["name"] };
-  }
+    // const groupsDisplay = this.state.groups.map((group) =>
+    //   <Group />
+    // )
 
-  render() { 
-    const groupsDisplay = this.state.groups.map((group) =>
-      <Group />
-    );
-
-
-    console.log(this.props.match.params.id);
-    
     return( 
       <div>
         <Header/>
 
         <div className='content fill-stack'>
             <div>
-                <h1>{this.state.name}</h1>
-                <p>{this.state.description}</p>
+                <h1>Event Name</h1>
+                <p>description</p>
             </div>
 
-            {groupsDisplay}
+            {/* {groupsDisplay} */}
 
             {/* should add a new group bc new driver on click */}
             <Button 
@@ -61,6 +49,9 @@ export default class EventPage extends Component {
         </div>
       </div>
     )
-  }
+
+   // console.log(this.props.match.params.id);  
 }
+
+export default EventPage;
 

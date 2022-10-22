@@ -1,12 +1,12 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import Header from '../Components/Header.js';
 import TextField from '@mui/material/TextField';
 import { Stack } from '@mui/system';
-import { Button, Grid } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import { createEvent } from '../firebase/firebase.js';
 import { AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from 'react-router-dom';
+import '../css/Event.css';
 
 
 function NewEventPage() {
@@ -43,9 +43,9 @@ function NewEventPage() {
             mx: 'auto'
           }}
         >
+          <div className="content">
           <Stack 
             spacing={2}
-            width='350px'
             justifyContent='center'
           >
             <TextField
@@ -124,6 +124,7 @@ function NewEventPage() {
             </Button>
 
           </Stack>
+          </div>
         </Grid>
         </AnimatePresence>
       </Box>
