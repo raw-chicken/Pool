@@ -1,13 +1,23 @@
-import Button from '@mui/material/Button';
 import '../css/App.css';
+import React, { Component } from 'react';
 
-function EventPage(event) {
-    return (
-        <div>
-            <h1>View Event</h1>
-            <p>{event}</p>
-        </div>
-    );
-  }
+export default class EventPage extends Component {
 
-export default EventPage;
+    state = {
+        name: "Event Name",
+        description: "yolo"
+      }
+
+    render() { 
+        return( 
+            <div>
+            <h1>{this.state.name}</h1>
+            <p>{this.state.description}</p>
+            </div>
+        )
+    }
+
+    load_event(id) {
+        //query the id and update state
+    }
+}
