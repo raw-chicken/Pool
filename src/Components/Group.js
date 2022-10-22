@@ -3,11 +3,11 @@ import '../css/App.css';
 import React, { Component } from 'react';
 
 export default class Group extends Component {
-
-    state = {
-        driver: "",
-        riders: []
-      }
+    constructor(props) {
+        super(props);
+       // this.handleMouseMove = this.handleMouseMove.bind(this);
+        this.state = { driver: "Driver", riders: [] };
+    }
 
     render() { 
         return( 
