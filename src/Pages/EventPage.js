@@ -1,4 +1,3 @@
-import Button from '@mui/material/Button';
 import '../css/App.css';
 import React, { Component } from 'react';
 
@@ -16,5 +15,9 @@ export default class EventPage extends Component {
             <p>{this.state.description}</p>
             </div>
         )
+    }
+
+    load_event(id) {
+        //query the id and update state
     }
 }
