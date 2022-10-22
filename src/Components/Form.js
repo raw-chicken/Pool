@@ -43,7 +43,6 @@ class Form extends React.Component {
         this.setState({ formData });
     }
 
-
 	handleSubmit = () => {
 		const eventID = createEvent(this.state.formData.eventName, this.state.formData.description, this.state.formData.date, this.state.formData.time)
         this.props.navigate(`/event/${eventID}`)
@@ -104,7 +103,8 @@ class Form extends React.Component {
               label="Event Date"
               type="date"
               margin="normal"
-              // sx={{ width: 220 }}
+              validators={['required']}
+              errorMessages={['this field is required']}
               InputLabelProps={{
                 shrink: true,
               }}
