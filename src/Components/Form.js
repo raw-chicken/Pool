@@ -1,7 +1,6 @@
 import React from 'react';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import { Box, Button } from '@mui/material';
-import { ThirtyFpsSelectSharp } from '@mui/icons-material';
 import { createEvent } from '../firebase/firebase.js';
 import { useNavigate } from 'react-router-dom';
 import { Stack } from '@mui/system';
@@ -39,10 +38,6 @@ class Form extends React.Component {
     }
 
     render() {
-        // const [name, setName] = React.useState("");
-        // const [desc, setDesc] = React.useState("");
-        // const [date, setDate] = React.useState("");
-        // const [time, setTime] = React.useState("");
 
         return (
             <ValidatorForm
