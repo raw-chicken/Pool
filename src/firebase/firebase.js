@@ -79,6 +79,15 @@ export function createGroup(driver, maxCapacity, description, eventID) {
   return update(ref(database), updates);
 }
 
+export function addMessage(name, text, groupId) {
+  const time = new Date()
+  set(ref(database, 'chats/' + groupId + "/" + time.getTime()), {
+    name: name,
+    text: text
+  })
+}
+
+
 /* End Actions */
 
 /* Listeners */

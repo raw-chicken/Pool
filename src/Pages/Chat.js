@@ -1,75 +1,80 @@
 import '../css/Chat.css';
 
 import React, { Component } from "react";
-import { database } from "../firebase/firebase"
+import { database, addMessage } from "../firebase/firebase"
 import { ref, onValue } from "firebase/database";
 
 export default class Chat extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        chats: [],
+        chats: {},
         content: '',
         readError: null,
-        writeError: null
+        writeError: null,
+        loadingChats: false
       };
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
     async componentDidMount() {
         console.log("did mount")
-        this.setState({ readError: null });
+        this.setState({ readError: null, loadingChats: true });
         try {
-            // console.log(otherDatabase)
-            // otherDatabase.ref("chats").on("value", snapshot => {
-            // console.log("chat updated")
-            // let chats = [];
-            // snapshot.forEach((snap) => {
-            //     chats.push(snap.val());
-            // });
+            //TODO: Need to get the group id 
             const messages = ref(database, 'chats/group1');
             onValue(messages, (snapshot) => {
-                // let messages = [];
                 console.log(snapshot.val())
-                // snapshot.forEach((snap) => {
-                //     // console.log(snap.val())
-                //     messages.push(snap.val());
-                // })
-                this.setState( {chats: snapshot.val()} );
-                // console.log(this.state.chats)
+                this.state.chats = snapshot.val()
+                this.setState({ readError: null, loadingChats: false });
             });
         } catch (error) {
             console.log(error)
-            this.setState({ readError: error.message });
+            this.setState({ readError: error.message, loadingChats: false });
         }
     }
-render() {
-    return (
-      <div>
-        <div className="chat-area">
-          {/* loading indicator */}
-          {/* {this.state.loadingChats ? <div className="spinner-border text-success" role="status">
-            <span className="sr-only">Loading...</span>
-          </div> : ""} */}
-          {/* chat area */}
-          {/* {console.log(Object.entries(this.state.chats))    } */}
-          "In render"
-          {Object.entries(this.state.chats).map(([messageKey, message]) => {
-            return <p className={"chat-bubble"} key={messageKey}>
-              {message}
-              <br />
-            </p>
-          })}
+
+    handleChange(event) {
+        this.setState({
+            content: event.target.value
+        });
+    }
+
+    async handleSubmit(event) {
+        event.preventDefault();
+        this.setState({ writeError: null });
+        // const chatArea = this.myRef.current;
+        try {
+            //TODO Need to get the name and group id
+          addMessage("test name", this.state.content, "group1")
+            // this.setState({ content: '' });
+            // chatArea.scrollBy(0, chatArea.scrollHeight);
+        } catch (error) {
+            this.setState({ writeError: error.message });
+        }
+    }
+
+    render() {
+        return (
+        <div>
+            <div className="chat-area">
+            "In render"
+            {Object.entries(this.state.chats).map(([time, message]) => {
+                //TODO: Need to get the user's Name ID
+                return <p className={"chat-bubble " + ("" === message.name ? "current-user" : "")} key={time}>
+                {message.text}
+                <br />
+                </p>
+            })}
+            </div>
+            <form className="mx-3" onSubmit={this.handleSubmit}>
+            <textarea className="form-control" name="content" onChange={this.handleChange} value={this.state.content}></textarea>
+            {this.state.error ? <p className="text-danger">{this.state.error}</p> : null}
+            <button type="submit" className="btn btn-submit px-5 mt-4">Send</button>
+            </form>
         </div>
-        {/* <form onSubmit={this.handleSubmit} className="mx-3">
-          <textarea className="form-control" name="content" onChange={this.handleChange} value={this.state.content}></textarea>
-          {this.state.error ? <p className="text-danger">{this.state.error}</p> : null}
-          <button type="submit" className="btn btn-submit px-5 mt-4">Send</button>
-        </form>
-        <div className="py-5 mx-3">
-          Login in as: <strong className="text-info">{this.state.user.email}</strong>
-        </div> */}
-      </div>
-    );
-  }
+        );
+    }
 }
   
   
