@@ -13,8 +13,6 @@ export default class EventPage extends Component {
   //can pass things in
   constructor(props) {
     super(props);
-    // let { id } = useParams();
-    // this.handleMouseMove = this.handleMouseMove.bind(this);
     this.state = { name: "Event Name", description: "event description", groups:["name"] };
   }
 
