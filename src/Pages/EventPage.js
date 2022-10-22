@@ -36,6 +36,8 @@ class EventPage extends Component {
   render() {
     let count = 0;
     let groupsDisplay = undefined;
+
+    // Very bad null handling
     if (this.state.groups !== undefined) {
       groupsDisplay = Object.keys(this.state.groups).map((group) =>
         <Group groupID={group} key={count++}/>
