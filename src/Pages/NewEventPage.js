@@ -1,13 +1,10 @@
 import * as React from 'react';
 import Header from '../Components/Header.js';
 import Form from '../Components/Form.js';
-import TextField from '@mui/material/TextField';
-import { Stack } from '@mui/system';
-import { Box, Button, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { createEvent } from '../firebase/firebase.js';
 import { AnimatePresence, motion } from "framer-motion";
-import { Link, useNavigate } from 'react-router-dom';
-import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import { useNavigate } from 'react-router-dom';
 
 import '../css/Event.css';
 

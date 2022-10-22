@@ -2,35 +2,31 @@ import React from 'react';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import { Box, Button } from '@mui/material';
 import { createEvent } from '../firebase/firebase.js';
-import { useNavigate } from 'react-router-dom';
+import {withRouter} from '../withRouter';
 import { Stack } from '@mui/system';
 import { AnimatePresence, motion } from 'framer-motion';
 
-
 class Form extends React.Component {
 
+    constructor(props) {
+        super()
+        this.handleSubmit=this.handleSubmit.bind(this);
+    }
+
 	state = {
-		name: '',
-		description: '',
-		date: '',
-		time: ''
+        formData: {
+            eventName: '',
+            description: '',
+            date: '',
+            time: ''
+        },
 	}
 
-	updateName = (event) => {
-		this.name = event.target.value
-	}
-
-	updateDesc = (event) => {
-		this.description = event.target.value
-	}
-
-	updateDate = (event) => {
-		this.date = event.target.value
-	}
-
-	updateTime = (event) => {
-		this.time = event.target.value
-	}
+    handleChange = (event) => {
+        const { formData } = this.state;
+        formData[event.target.name] = event.target.value;
+        this.setState({ formData });
+    }
   
 	getAnimationProps = (i) => {
     return {
@@ -49,13 +45,12 @@ class Form extends React.Component {
 
 
 	handleSubmit = () => {
-		const eventID = createEvent(this.name, this.description, this.date, this.time)
-		const navigate = useNavigate();
-		navigate(`/event/${eventID}`);
+		const eventID = createEvent(this.state.formData.eventName, this.state.formData.description, this.state.formData.date, this.state.formData.time)
+        this.props.navigate(`/event/${eventID}`)
 	}
 
 	render() {
-
+        const { formData } = this.state;
 		return (
       <AnimatePresence>
 			<ValidatorForm
@@ -71,11 +66,11 @@ class Form extends React.Component {
 					<TextValidator
 						required
 						label="Event Name"
-						name="name"
+						name="eventName"
 						id="standard-basic"
 						variant="standard"
-						value = {this.name}
-						onChange={this.updateName}
+						value = {formData.eventName}
+						onChange={this.handleChange}
 						validators={['required']}
 						errorMessages={['this field is required']}
 						sx={{ width: '100%' }}
@@ -85,11 +80,12 @@ class Form extends React.Component {
           <motion.div key="formDesc" {...this.getAnimationProps(0.2)}>
 					<TextValidator
 						id="standard-multiline"
-						label="Description"
+						label="description"
+                        name="description"
 						multiline
 						rows={3}
-						value={ this.description }
-						onChange={this.updateDesc}
+						value={ formData.description }
+						onChange={this.handleChange}
 						sx={{ width: '100%' }}
 					/>
           </motion.div>
@@ -104,6 +100,7 @@ class Form extends React.Component {
             <TextValidator
               required
               id="date"
+              name="date"
               label="Event Date"
               type="date"
               margin="normal"
@@ -111,14 +108,15 @@ class Form extends React.Component {
               InputLabelProps={{
                 shrink: true,
               }}
-              value={ this.date }
-              onChange={this.updateDate}
+              value={ formData.date }
+              onChange={this.handleChange}
             />
             </motion.div>
 
             <motion.div key="formTime" {...this.getAnimationProps(0.4)}>
             <TextValidator
               required
+              name="time"
               id="time"
               label="Event Time"
               type="time"
@@ -129,9 +127,8 @@ class Form extends React.Component {
               inputProps={{
               step: 60, // 5 min
               }}
-              value={this.time}
-              onChange={this.updateTime}
-              // sx={{ width: 150 }}
+              value={formData.time}
+              onChange={this.handleChange}
             />
             </motion.div>
 					</Box>
@@ -159,4 +156,4 @@ class Form extends React.Component {
 	}
 }
 
-export default Form;
+export default withRouter(Form);

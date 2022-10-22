@@ -23,10 +23,14 @@ export default class Group extends Component {
 
   render() {
     let count = 0;
-    const ridersDisplay = Object.values(this.state.passengers).map((rider) =>
-      <p className="item" key={count++}>{this.state.update && rider !== this.state.driver && rider}</p>
-    );
+    let ridersDisplay = undefined;
 
+    // very bad null handling
+    if (this.state.passengers !== undefined) {
+      ridersDisplay = Object.values(this.state.passengers).map((rider) =>
+        <p className="item" key={count++}>{this.state.update && rider !== this.state.driver && rider}</p>
+      );
+    }
 
     return( 
       <div className="box p3">
