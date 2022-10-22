@@ -17,7 +17,6 @@ function withParams(Component) {
 }
 
 class EventPage extends Component {
-
   constructor(props) {
     super(props);
     let { id } = this.props.params;
@@ -58,7 +57,7 @@ class EventPage extends Component {
       groupsDisplay = Object.keys(this.state.groups).map((group) =>
       <AnimatePresence>
       <motion.div key={count++} {...this.getAnimationProps((count + 1) * 0.1)}>
-              <Group groupID={group} key={count++}/>
+              <Group groupID={group} eventID={this.state.id} key={count++}/>
             </motion.div>
         </AnimatePresence>
       )

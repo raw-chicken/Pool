@@ -1,14 +1,16 @@
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
 import React, { Component } from 'react';
+import {withRouter} from '../withRouter';
 import '../css/App.css';
 import { getGroupInfo } from '../firebase/firebase';
 
-export default class Group extends Component {
+class Group extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
+      eventId: props.eventID,
       update: false,
       id: props.groupID,
       driver: '',
@@ -16,9 +18,13 @@ export default class Group extends Component {
       passengers: {}
     };
 
+    this.openChat=this.openChat.bind(this);
     getGroupInfo(props.groupID, this);
   }
 
+  openChat = (event) => {
+    this.props.navigate(`/event/${this.state.eventId}/chat/${this.state.id}`)
+  }
   render() {
     let count = 0;
     let ridersDisplay = undefined;
@@ -44,6 +50,7 @@ export default class Group extends Component {
               margin: 1
             }} 
             className="stacked box btn p3"
+            onClick={this.openChat}
             >
         <h3 className="item">{this.state.update && this.state.driver} ({count}/{this.state.update && this.state.capacity})</h3>
         {this.state.update && ridersDisplay}
@@ -88,4 +95,4 @@ export default class Group extends Component {
         </Button>
     )
   }
-}
+}export default withRouter(Group);
