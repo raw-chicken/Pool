@@ -23,15 +23,18 @@ export default function Header() {
           color="inherit"
           aria-label="menu"
           href="/"
-          // sx={{ mr: 2 }}
+          // sx={{ 
+          //   alignItems: 'center',
+          // }}
         >
           <Box
+            className="d-flex"
             component="img"
             sx={{
               height: 50,
               width: 100,
             }}
-            src="pool-transparent.png"
+            src="pool-transparent-large-text.png"
           />
         </Button>
     // </Box>

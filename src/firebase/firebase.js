@@ -47,16 +47,11 @@ export function createEvent(name, desc, date, time) {
 }
 
 export async function getEvent(eventID, page) {
-  console.log("GetEVENT");
   let val = "NOTHING TO SEE HERE";
-  
   await get(ref(database, 'events/' + eventID)).then((snapshot) => {
-    console.log("OwO");
     if (snapshot.exists()) {
-      console.log("exists")
       val = snapshot.val();
-      val.id = eventID;
-      console.log(snapshot.val());
+      console.log("Snapshot:", snapshot.val());
     } else {
       console.log("No data available");
     }
@@ -64,13 +59,37 @@ export async function getEvent(eventID, page) {
     console.error(error);
   });
 
-  console.log("TETST", val);
   page.setState({
     update: true,
+    id: eventID,
     name: val.name,
     description: val.description,
     groups: val.groups,
   });
+  return val;
+}
+
+export async function getGroupInfo(groupID, page) {
+  let val = "NOTHING TO SEE HERE";
+  await get(ref(database, 'groups/' + groupID)).then((snapshot) => {
+    if (snapshot.exists()) {
+      val = snapshot.val();
+      console.log("Snapshot:", snapshot.val());
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+
+  page.setState({
+    update: true,
+    id: groupID,
+    driver: val.driver,
+    capacity: val.capacity,
+    passengers: val.passenger,
+  });
+
   return val;
 }
 

@@ -29,72 +29,53 @@ class EventPage extends Component {
       groups: {},
     }
 
-    // {name: "Event Name", description: "description", groups:[]};
+    getEvent(this.state.id, this);
+    
   }
-
-  componentDidMount() {
-    let metadata = getEvent(this.state.id, this);
-    console.log("Did mount", metadata)
-    this.setState({
-      name: metadata.name,
-      description: metadata.description,
-      groups: metadata.groups,
-    });
-  }
-
-  // componentWillMount(){
-  //   // let metadata = getEvent(id);
-  //   // this.state = {
-  //   //   name: metadata.name,
-  //   //   description: metadata.description,
-  //   //   groups: metadata.groups,
-  //   // }
-  // }
 
   render() {
-  //console.log("ID: ", id);
-  // const groupsDisplay = this.state.groups.map((group) =>
-  //   <Group />
-  // )
-  console.log("BEAUTIFUL STATE", this.state);
+    let count = 0;
+    const groupsDisplay = Object.keys(this.state.groups).map((group) =>
+      <Group groupID={group} key={count++}/>
+    )
 
-  return( 
+    return( 
       <div>
-      <Header/>
+        <Header/>
 
-        <div className='content fill-stack'>
-          <div>
-            <h1> {this.state.update && this.state.name } </h1>
-            <p>{ this.state.update && this.state.description } </p>
+          <div className='content fill-stack'>
+            <div>
+              <h1> {this.state.update && this.state.name } </h1>
+              <p>{ this.state.update && this.state.description } </p>
+            </div>
+
+            { groupsDisplay }
+
+            {/* should add a new group bc new driver on click */}
+            <Button 
+            variant="contained" 
+            size      ="large"
+            sx={{
+              color:"#F7F7F6", 
+              backgroundColor:"#77BB3F",
+              borderRadius: 10,
+              ':hover': {
+                backgroundColor: '#77BB3F',
+              }
+            }} 
+            className="btn"
+            >
+            <Typography
+              variant="h7"
+            >
+              I'm a driver
+            </Typography>
+            </Button>
           </div>
-
-          {/* {groupsDisplay} */}
-
-          {/* should add a new group bc new driver on click */}
-          <Button 
-          variant="contained" 
-          size="large"
-          sx={{
-            color:"#F7F7F6", 
-            backgroundColor:"#77BB3F",
-            borderRadius: 10,
-            ':hover': {
-              backgroundColor: '#77BB3F',
-            }
-          }} 
-          className="btn"
-          >
-          <Typography
-            variant="h7"
-          >
-            I'm a driver
-          </Typography>
-          </Button>
         </div>
-      </div>
     )
   }
-   // console.log(this.props.match.params.id);  
+    // console.log(this.props.match.params.id);  
 }
 
 export default withParams(EventPage);
