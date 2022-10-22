@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { getDatabase, ref, onValue, set, child, push, update } from "firebase/database";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -20,19 +20,17 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Initialize Realtime Database and get a reference to the service
-const database = getDatabase(app);
+export const database = getDatabase(app);
 
-
-import { getDatabase, ref, onValue, set, child, push, update } from "firebase/database";
 
 // Actively listen for database changes on new groups and such
 // groups gets info from firebase
 // updateGroups updates state which in turn adds component to page
-const groups = ref(database, 'event/' + eventID + '/groups');
-onValue(groups, (snapshot) => {
-  const data = snapshot.val();
-  updateGroups(data);
-});
+// const groups = ref(database, 'event/' + eventID + '/groups');
+// onValue(groups, (snapshot) => {
+//   const data = snapshot.val();
+//   updateGroups(data);
+// });
 
 // Given a description, create an event
 export function createEvent(desc) {

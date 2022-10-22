@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { db } from "../firebase/firebase"
+import { database } from "../firebase/firebase"
 
 export default class Chat extends Component {
     constructor(props) {
@@ -14,7 +14,7 @@ export default class Chat extends Component {
     async componentDidMount() {
       this.setState({ readError: null });
       try {
-        db.ref("chats").on("value", snapshot => {
+        database.ref("chats").on("value", snapshot => {
           let chats = [];
           snapshot.forEach((snap) => {
             chats.push(snap.val());

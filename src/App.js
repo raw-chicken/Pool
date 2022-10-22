@@ -8,7 +8,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path='/' element={<Chat />} />
+        <Route exact path='/' element={<StartPage />} />
       </Routes>
     </Router>
   );
