@@ -28,40 +28,38 @@ import { getDatabase, ref, onValue, set, child, push, update } from "firebase/da
 // Actively listen for database changes on new groups and such
 // groups gets info from firebase
 // updateGroups updates state which in turn adds component to page
-const groups = ref(db, 'event/' + eventID + '/groups');
+const groups = ref(database, 'event/' + eventID + '/groups');
 onValue(groups, (snapshot) => {
   const data = snapshot.val();
   updateGroups(data);
 });
 
+// Given a description, create an event
 export function createEvent(desc) {
-  const eventID = -1 // some hashing algorithm
-  const db = getDatabase();
-  set(ref(db, 'event/' + eventID), {
-    description: desc
+  const eventID = -1; // some hashing algorithm
+  set(ref(database, 'event/' + eventID), {
+    description: desc,
+    groups: {},
   });
 }
 
-// export function writeNewPost(uid, username, picture, title, body) {
-//   const db = getDatabase();
+export function createGroup(driver, maxCapacity, description, eventID) {
+  const groupID = -1; // some hashing algorithm
+  // A post entry.
+  const groupData = {
+    driver: driver,
+    maxCapacity: maxCapacity,
+    desc: description
+  };
 
-//   // A post entry.
-//   const postData = {
-//     author: username,
-//     uid: uid,
-//     body: body,
-//     title: title,
-//     starCount: 0,
-//     authorPic: picture
-//   };
+  // Get a key for a new Post.
+  const res1 = push(child(ref(database), 'groups'), groupID);
+  const res2 = push(child(ref(database), 'events/' + eventID + '/groups'), groupID);
+  const res3 = push(child(ref(database), 'chat'), groupID);
 
-//   // Get a key for a new Post.
-//   const newPostKey = push(child(ref(db), 'posts')).key;
+  // Write the new post's data simultaneously in the posts list and the user's post list.
+  const updates = {};
+  updates['/groups/' + groupID] = groupData;
 
-//   // Write the new post's data simultaneously in the posts list and the user's post list.
-//   const updates = {};
-//   updates['/posts/' + newPostKey] = postData;
-//   updates['/user-posts/' + uid + '/' + newPostKey] = postData;
-
-//   return update(ref(db), updates);
-// }
+  return update(ref(database), updates);
+}
