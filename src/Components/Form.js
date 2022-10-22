@@ -21,12 +21,6 @@ class Form extends React.Component {
             time: ''
         },
 	}
-
-    handleChange = (event) => {
-        const { formData } = this.state;
-        formData[event.target.name] = event.target.value;
-        this.setState({ formData });
-    }
   
 	getAnimationProps = (i) => {
     return {
@@ -42,6 +36,12 @@ class Form extends React.Component {
       }
     }
 	}
+
+    handleChange = (event) => {
+        const { formData } = this.state;
+        formData[event.target.name] = event.target.value;
+        this.setState({ formData });
+    }
 
 
 	handleSubmit = () => {
