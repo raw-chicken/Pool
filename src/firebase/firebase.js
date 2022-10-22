@@ -46,20 +46,30 @@ export function createEvent(name, desc, date, time) {
   return eventID;
 }
 
-export function getEvent(eventID) {
+export async function getEvent(eventID, page) {
   console.log("GetEVENT");
   let val = "NOTHING TO SEE HERE";
-  get(ref(database, 'events/' + eventID)).then((snapshot) => {
+  
+  await get(ref(database, 'events/' + eventID)).then((snapshot) => {
     console.log("OwO");
     if (snapshot.exists()) {
       console.log("exists")
       val = snapshot.val();
+      val.id = eventID;
       console.log(snapshot.val());
     } else {
       console.log("No data available");
     }
   }).catch((error) => {
     console.error(error);
+  });
+
+  console.log("TETST", val);
+  page.setState({
+    update: true,
+    name: val.name,
+    description: val.description,
+    groups: val.groups,
   });
   return val;
 }

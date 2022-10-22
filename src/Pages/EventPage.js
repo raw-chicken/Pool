@@ -20,22 +20,35 @@ class EventPage extends Component {
   constructor(props) {
     super(props);
     let { id } = this.props.params;
-    console.log(id);
-    let metadata = getEvent(id);
-    // console.log("THIS IS A TEST: ", test)
+    
     this.state = {
-      name: metadata.name,
-      description: metadata.description,
-      groups: metadata.groups,
+      id: id,
+      update: false,
+      name: "",
+      description: "",
+      groups: {},
     }
+
     // {name: "Event Name", description: "description", groups:[]};
   }
 
-  // componentDidMount() {
-  //   let { id } = this.props.params;
-  //   console.log(id);
+  componentDidMount() {
+    let metadata = getEvent(this.state.id, this);
+    console.log("Did mount", metadata)
+    this.setState({
+      name: metadata.name,
+      description: metadata.description,
+      groups: metadata.groups,
+    });
+  }
 
-  //   // this.state = {name: "Event Name", description: "description", groups:[]}
+  // componentWillMount(){
+  //   // let metadata = getEvent(id);
+  //   // this.state = {
+  //   //   name: metadata.name,
+  //   //   description: metadata.description,
+  //   //   groups: metadata.groups,
+  //   // }
   // }
 
   render() {
@@ -43,7 +56,7 @@ class EventPage extends Component {
   // const groupsDisplay = this.state.groups.map((group) =>
   //   <Group />
   // )
-  console.log(this.state);
+  console.log("BEAUTIFUL STATE", this.state);
 
   return( 
       <div>
@@ -51,8 +64,8 @@ class EventPage extends Component {
 
         <div className='content fill-stack'>
           <div>
-            <h1> { this.state.name } </h1>
-            <p>{ this.state.description } </p>
+            <h1> {this.state.update && this.state.name } </h1>
+            <p>{ this.state.update && this.state.description } </p>
           </div>
 
           {/* {groupsDisplay} */}
