@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { database, addMessage } from "../firebase/firebase"
 import { ref, onValue } from "firebase/database";
 import { useParams } from "react-router-dom";
+import { getUserName } from '../Global/UserInfo';
 
 
 function withParams(Component) {
@@ -57,7 +58,10 @@ class Chat extends Component {
         const chatArea = this.myRef.current;
         try {
             //TODO Need to get the name and group id
-            addMessage("test name", this.state.content, this.state.groupId)
+            console.log("Submit clicked")
+            const username = getUserName()
+            console.log(username)
+            addMessage(username, this.state.content, this.state.groupId)
             this.setState({ content: '' });
             chatArea.scrollBy(0, chatArea.scrollHeight);
         } catch (error) {
