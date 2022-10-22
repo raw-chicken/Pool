@@ -11,29 +11,8 @@ import '../css/Event.css';
 
 function NewEventPage() {
     document.body.style = 'background: white';
-    const [name, setName] = React.useState("");
-    const [desc, setDesc] = React.useState("");
-    const [date, setDate] = React.useState("");
-    const [time, setTime] = React.useState("");
-
-    // let nameValid = false;
-    // let dateValid = false;
-    // let timeValid = false;
-
-    // component={Link} 
-    //           to={{ pathname: '/event', state: { foo: 'bar'} }}
-    const navigate = useNavigate();
-    const handleOnClick = () => {
-      const eventID = createEvent(name, desc, date, time)
-      navigate(`/event/${eventID}`);
-    };
-
-    const handleChange = (event) => {
-      console.log("handling change")
-  }
-
+    
     return (
-
       <AnimatePresence>
         <motion.div
           key="newEventPage"
