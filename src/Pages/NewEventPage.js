@@ -5,12 +5,12 @@ import TextField from '@mui/material/TextField';
 import { Stack } from '@mui/system';
 import { Button, Grid } from '@mui/material';
 import { createEvent } from '../firebase/firebase.js';
+import { AnimatePresence } from "framer-motion";
 
 function test(test) {
     console.log(test);
 }
 
-import { AnimatePresence } from "framer-motion";
 
 
 function NewEventPage() {
