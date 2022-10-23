@@ -51,14 +51,10 @@ export async function getEvent(eventID, page) {
   await get(ref(database, 'events/' + eventID)).then((snapshot) => {
     if (snapshot.exists()) {
       val = snapshot.val();
-      console.log("Event Snapshot:", snapshot.val());
-    } else {
-      console.log("No data available");
     }
   }).catch((error) => {
     console.error(error);
   });
-  console.log(val.description);
   page.setState({
     update: true,
     id: eventID,
@@ -74,9 +70,6 @@ export async function getGroupInfo(groupID, page) {
   await get(ref(database, 'groups/' + groupID)).then((snapshot) => {
     if (snapshot.exists()) {
       val = snapshot.val();
-      console.log("Group Snapshot:", val);
-    } else {
-      console.log("No data available");
     }
   }).catch((error) => {
     console.error(error);
@@ -97,7 +90,6 @@ export async function getGroupInfo(groupID, page) {
  
 
 export function addPassenger(groupID, userName, userId) {
-  console.log(userId)
   update(ref(database, 'groups/' + groupID + "/passengers"), {
     [userId]: userName
   });
@@ -116,7 +108,6 @@ export function editEvent(eventID, name, desc, date, time) {
 }
 
 export async function createGroup(driver, capacity, plates, desc, eventID) {
-  console.log("CreateGroup")
   const current = new Date();
   const curr_time = current.toLocaleTimeString("en-US");
 

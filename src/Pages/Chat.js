@@ -53,7 +53,6 @@ class Chat extends Component {
     }
 
     handleClickOpen() {
-        console.log("opn")
         this.setState({setOpen: true})
     };
     
@@ -68,11 +67,9 @@ class Chat extends Component {
     }
 
     async componentDidMount() {
-        console.log("did mount")
         try {
             const messages = ref(database, 'chats/' + this.state.groupID);
             onValue(messages, (snapshot) => {
-                // console.log(snapshot.val())
                 this.state.chats = snapshot.val() === null ? {} : snapshot.val()
             });
         } catch (error) {
@@ -80,16 +77,12 @@ class Chat extends Component {
         }
     }
 
-
-
     async handleSubmit(event) {
         event.preventDefault();
         const chatArea = this.myRef.current;
         try {
             //TODO Need to get the name and group id
-            console.log("Submit clicked")
             const username = getUserName()
-            console.log(username)
             addMessage(username, this.state.content, this.state.groupID)
             this.setState({ content: '' });
             chatArea.scrollBy(0, chatArea.scrollHeight);
@@ -98,15 +91,9 @@ class Chat extends Component {
         }
     }
 
-    
-
     render() {
-        console.log('passengers', this.state.passengers);
         let count2 = 1000;
         let temp = Object.entries(this.state.passengers).map((entry) => {
-            console.log('temp', entry)
-            let key = entry[0];
-            let count = 0
             let rider = entry[1];
             return <li  key={count2++}
                 sx={{
@@ -117,7 +104,6 @@ class Chat extends Component {
                 {rider}
                 </li>
         });
-        console.log(this.state.infoVisible)
         return (
         <div>
             <Header />
@@ -145,41 +131,39 @@ class Chat extends Component {
             </Typography>
         </Button>
 
-            <Dialog fullWidth open={this.state.setOpen} onClose={() => this.handleClose()}>
-            <DialogTitle>Driver Information</DialogTitle>
-            <DialogContent>
-            <DialogContentText>
-                Driver: {this.state.driver} 
-            </DialogContentText>
-            <DialogContentText>
-                License Plate: {this.state.plate}
-            </DialogContentText>
-            <DialogContentText>
-                Capacity: {this.state.capacity}
-            </DialogContentText>
-            <DialogContentText>
-                {console.log("State", this.state)} 
-                {console.log("Desc", this.state.desc)}
-                Description: {this.state.desc}
-            </DialogContentText>
-            <DialogContentText>
-                Passengers: <br></br> {temp}
-            </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-            <Button onClick={() => this.handleClose()}>Done</Button>
-            </DialogActions>
-            </Dialog>
+          <Dialog fullWidth open={this.state.setOpen} onClose={() => this.handleClose()}>
+          <DialogTitle>Driver Information</DialogTitle>
+          <DialogContent>
+          <DialogContentText>
+              Driver: {this.state.driver} 
+          </DialogContentText>
+          <DialogContentText>
+              License Plate: {this.state.plate}
+          </DialogContentText>
+          <DialogContentText>
+              Capacity: {this.state.capacity}
+          </DialogContentText>
+          <DialogContentText>
+              Description: {this.state.desc}
+          </DialogContentText>
+          <DialogContentText>
+              Passengers: <br></br> {temp}
+          </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+          <Button onClick={() => this.handleClose()}>Done</Button>
+          </DialogActions>
+          </Dialog>
             
             
             <div className="chat-area">
             {Object.entries(this.state.chats).map(([time, message]) => {
-                //TODO: Need to get the user's Name ID
-                return <p className={"chat-bubble " + (getUserName() === message.name ? "current-user" : "")} key={time}>
-                {message.text}
-                <br />
-                <span className="chat-time float-right">{message.name}</span>
-                </p>
+              //TODO: Need to get the user's Name ID
+              return <p className={"chat-bubble " + (getUserName() === message.name ? "current-user" : "")} key={time}>
+              {message.text}
+              <br />
+              <span className="chat-time float-right">{message.name}</span>
+              </p>
             })}
             </div>
             

@@ -69,7 +69,6 @@ class Group extends Component {
               e.stopPropagation();
               deleteGroup(this.state.eventId, this.state.id)
               window.location.reload();
-              console.log("I am going to delete the driver " + this.state.driver);
             }}
             sx = {{
               padding: 0,
