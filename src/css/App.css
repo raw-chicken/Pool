@@ -54,8 +54,24 @@
   justify-content: center;
 }
 
+.horizontal-stack {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  justify-content: space-between; 
+}
+
 
 /*button not uppercase*/
 .btn {
   text-transform: unset !important;
+}
+
+.m10 {
+  margin: 10px 0px;
+}
+
+.p3 {
+  padding: 3%
 }

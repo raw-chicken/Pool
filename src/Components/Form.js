@@ -21,12 +21,6 @@ class Form extends React.Component {
             time: ''
         },
 	}
-
-    handleChange = (event) => {
-        const { formData } = this.state;
-        formData[event.target.name] = event.target.value;
-        this.setState({ formData });
-    }
   
 	getAnimationProps = (i) => {
     return {
@@ -43,6 +37,11 @@ class Form extends React.Component {
     }
 	}
 
+    handleChange = (event) => {
+        const { formData } = this.state;
+        formData[event.target.name] = event.target.value;
+        this.setState({ formData });
+    }
 
 	handleSubmit = () => {
 		const eventID = createEvent(this.state.formData.eventName, this.state.formData.description, this.state.formData.date, this.state.formData.time)
@@ -104,7 +103,8 @@ class Form extends React.Component {
               label="Event Date"
               type="date"
               margin="normal"
-              // sx={{ width: 220 }}
+              validators={['required']}
+              errorMessages={['this field is required']}
               InputLabelProps={{
                 shrink: true,
               }}

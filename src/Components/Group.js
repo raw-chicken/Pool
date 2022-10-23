@@ -3,8 +3,6 @@ import { Typography } from '@mui/material';
 import React, { Component } from 'react';
 import '../css/App.css';
 import { getGroupInfo, addPassenger } from '../firebase/firebase';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import { getUserId, getUserName } from '../Global/UserInfo';
 
 //Join group
@@ -44,7 +42,20 @@ export default class Group extends Component {
     }
 
     return( 
-      <div className="box p3">
+      <Button
+        variant="contained" 
+            size="large"
+            sx={{
+              color:"black", 
+              backgroundColor:"#F7F7F6",
+              borderRadius: 5,
+              ':hover': {
+                backgroundColor: '#F7F7F6',
+              },
+              margin: 1
+            }} 
+            className="stacked box btn p3"
+            >
         <h3 className="item">{this.state.update && this.state.driver} ({count}/{this.state.update && this.state.capacity})</h3>
         {this.state.update && ridersDisplay}
         <div className="item">
@@ -86,7 +97,7 @@ export default class Group extends Component {
           </Typography>
         </Button>
         </div>
-      </div>
+        </Button>
     )
   }
 }
