@@ -29,6 +29,8 @@ class Group extends Component {
     console.log("clicked")
     console.log(username, userId)
     addPassenger(this.state.id, username, userId)
+    this.setState({update: true})
+    getGroupInfo(this.state.id, this)
   }
 
   openChat = (event) => {
