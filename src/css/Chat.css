@@ -11,8 +11,9 @@ h1 {
 }
 
   .chat-area {
-    height: 90%;
-    overflow-y: scroll;
+    height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
   
   .chat-area .chat-bubble {
