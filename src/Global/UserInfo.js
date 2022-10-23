@@ -12,7 +12,7 @@ class UserInfo {
         this._userName = newName;
         let date = new Date();
         let curr_time = date.toLocaleDateString("en-US");
-        this._userID = crypto.MD5(newName + date).toString().substring(0, 20)
+        this._userID = crypto.MD5(newName + curr_time).toString().substring(0, 7)
     }
 
     static getInstance() {

@@ -15,6 +15,7 @@ class Group extends Component {
       update: false,
       id: props.groupID,
       driver: '',
+      count: 0,
       capacity: 0,
       passengers: {}
     };
@@ -24,6 +25,7 @@ class Group extends Component {
   }
 
   joinOnClick() {
+    if (this.state.count >= this.state.capacity) return;
     const username = getUserName()
     const userId = getUserId()
     console.log("clicked")
@@ -44,6 +46,8 @@ class Group extends Component {
         <p className="item" key={count++}>{this.state.update && rider !== this.state.driver && rider}</p>
       );
     }
+
+    this.setState({count: count});
 
     return( 
       <Button

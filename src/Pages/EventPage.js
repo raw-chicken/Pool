@@ -55,9 +55,9 @@ class EventPage extends Component {
     // Very bad null handling
     if (this.state.groups !== undefined) {
       groupsDisplay = Object.keys(this.state.groups).map((group) =>
-        <AnimatePresence>
+        <AnimatePresence key={2000 + count}>
           <motion.div key={"eventCard" + count++} {...this.getAnimationProps((count + 1) * 0.1)}>
-            <Group groupID={group} eventID={this.state.id} key={count++}/>
+            <Group groupID={group} eventID={this.state.id} key={1000 + count++}/>
           </motion.div>
         </AnimatePresence>
       )
