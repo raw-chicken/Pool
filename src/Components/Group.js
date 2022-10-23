@@ -48,6 +48,37 @@ class Group extends Component {
     this.props.navigate(`/event/${this.state.eventId}/chat/${this.state.id}`)
   }
 
+  getDriver(driver) {
+    if (!this.state.editMode)
+    { // normal
+      return <h3>
+        {this.state.update && this.state.driver}
+        ({this.state.count}/{this.state.update && this.state.capacity})
+      </h3>
+    }
+    else
+    { // editing 
+      return (
+        <h3>
+          {this.state.update && this.state.driver}
+          ({this.state.count}/{this.state.update && this.state.capacity})
+          <IconButton
+            onMouseDown={e => e.stopPropagation()}
+            onClick={e => {
+              e.stopPropagation();
+              console.log("I am going to delete the driver " + this.state.driver);
+            }}
+            sx = {{
+              padding: 0,
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </h3>
+      )
+    }
+  }
+
   getRider(rider) {
     if (!this.state.editMode)
     { // normal
@@ -183,7 +214,7 @@ class Group extends Component {
             textAlign: "left",
           }}
         >
-          <h3 className="item">{this.state.update && this.state.driver} ({this.state.count}/{this.state.update && this.state.capacity})</h3>
+          {this.getDriver()}
           {this.state.update && 
             <ul>
               {ridersDisplay}
