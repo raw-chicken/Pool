@@ -11,8 +11,19 @@ import DialogTitle from '@mui/material/DialogTitle';
 export default function ShareLink(props) {
     const [open, setOpen] = React.useState(false);
     const copyLink = () => {
-        const link = window.location.href;
-        navigator.clipboard.writeText(link);
+        // const link = window.location.href;
+        // link.select();
+        // document.execCommand('copy');
+        // navigator.clipboard.writeText(link);
+
+        var dummy = document.createElement('input'),
+            text = window.location.href;
+
+        document.body.appendChild(dummy);
+        dummy.value = text;
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
         setOpen(true);
     }
 
