@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import {withRouter} from '../withRouter';
 import '../css/App.css';
 import { getGroupInfo, addPassenger, removeMember, deleteGroup } from '../firebase/firebase';
-import { getUserId, getUserName } from '../Global/UserInfo';
+import { UserInfo, getUserId, getUserName } from '../Global/UserInfo';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
@@ -163,6 +163,62 @@ class Group extends Component {
       )
     } 
   }
+
+  getJoinButton()
+  {
+    if (!this.state.editMode) 
+    { // normal
+      return (
+        <Button 
+          variant="contained" 
+          sx={{
+            marginTop: "15px",
+            marginBottom: "15px",
+            color:"#F7F7F6", 
+            backgroundColor:"#77BB3F",
+            ':hover': {
+              backgroundColor: '#77BB3F',
+            }
+          }} 
+          className="btn change-btn-size"
+          onClick={() => this.joinOnClick()}
+        >
+          <Typography variant="h7">Join</Typography>
+        </Button>
+      )
+    }
+    else
+    {
+      return (
+        <Button 
+          variant="contained" 
+          sx={{
+            marginTop: "15px",
+            marginBottom: "15px",
+            color:"#F7F7F6", 
+            backgroundColor:"#F51112",
+            ':hover': {
+              backgroundColor: '#F51112',
+            }
+          }} 
+          className="btn change-btn-size"
+          onClick={() => {
+            if (this.state.count >= this.state.capacity) return;
+
+            let username = prompt("Enter the new rider's name.");
+            const newUser = new UserInfo(username);
+            const userID = newUser._userID;
+
+            addPassenger(this.state.id, username, userID);
+            getGroupInfo(this.state.id, this);
+            
+          }}
+        >
+          <Typography variant="h7">Add Rider</Typography>
+        </Button>
+      )
+    } 
+  }
   
   render() {
     let count = 0;
@@ -233,22 +289,7 @@ class Group extends Component {
         >
         {/* right box */}
           {this.getEditButton()}
-          <Button 
-            variant="contained" 
-            sx={{
-              marginTop: "15px",
-              marginBottom: "15px",
-              color:"#F7F7F6", 
-              backgroundColor:"#77BB3F",
-              ':hover': {
-              backgroundColor: '#77BB3F',
-              }
-            }} 
-            className="btn change-btn-size"
-            onClick={() => this.joinOnClick()}
-          >
-            <Typography variant="h7">Join</Typography>
-          </Button>
+          {this.getJoinButton()}
         </div>
       </Button>
     )

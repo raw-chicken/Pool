@@ -8,6 +8,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { createGroup } from '../firebase/firebase';
+import { setUserInstance } from '../Global/UserInfo';
 
 export default function NewGroupForm(props) {
   const [open, setOpen] = React.useState(false);
@@ -16,7 +17,7 @@ export default function NewGroupForm(props) {
   const [model, setModel] = React.useState("");
   const [plates, setPlates] = React.useState("");
   const [notes, setNotes] = React.useState("");
-  const [capacity, setCapacity] = React.useState(0);
+  const [capacity, setCapacity] = React.useState(5);
 
   const handleClickOpen = () => {
     setOpen(true);
