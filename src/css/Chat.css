@@ -6,6 +6,10 @@ h1 {
     margin-top: 60px;
   } */
   
+.input {
+  width: 80%
+}
+
   .chat-area {
     height: 90%;
     overflow-y: scroll;
@@ -28,6 +32,7 @@ h1 {
   .chat-area .chat-bubble.current-user {
     margin-left: auto;
     background-color: #a5d6a7;
+    text-align: right;
   }
   
 
@@ -58,5 +63,8 @@ h1 {
     .content {
         margin-top: 30%;
         width: 90%;
+    }
+    .input {
+      width: 70%
     }
 }

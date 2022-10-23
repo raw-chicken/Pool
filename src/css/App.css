@@ -60,6 +60,7 @@
   flex-wrap: nowrap;
 
   justify-content: space-between; 
+  align-content: center;
 }
 
 
@@ -75,3 +76,23 @@
 .p3 {
   padding: 3%
 }
+
+.change-btn-size {
+  width: 100px;
+  margin-top: 15px;
+}
+
+@media (max-width:350px) {
+  .change-btn-size {
+    max-width: 5px;
+    font-size: 10px;
+  }
+  
+  .change-text-size {
+    font-size: 10px;
+  }
+
+  .change-header-size {
+    font-size: 14px;
+  }
+ }

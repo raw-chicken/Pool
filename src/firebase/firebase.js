@@ -51,14 +51,14 @@ export async function getEvent(eventID, page) {
   await get(ref(database, 'events/' + eventID)).then((snapshot) => {
     if (snapshot.exists()) {
       val = snapshot.val();
-      console.log("Snapshot:", snapshot.val());
+      console.log("Event Snapshot:", snapshot.val());
     } else {
       console.log("No data available");
     }
   }).catch((error) => {
     console.error(error);
   });
-
+  console.log(val.description);
   page.setState({
     update: true,
     id: eventID,
@@ -74,7 +74,7 @@ export async function getGroupInfo(groupID, page) {
   await get(ref(database, 'groups/' + groupID)).then((snapshot) => {
     if (snapshot.exists()) {
       val = snapshot.val();
-      console.log("Snapshot:", val);
+      console.log("Group Snapshot:", val);
     } else {
       console.log("No data available");
     }
@@ -112,7 +112,7 @@ export function editEvent(eventID, name, desc, date, time) {
   return update(ref(database), updates);
 }
 
-export function createGroup(driver, capacity, plates, desc, eventID) {
+export async function createGroup(driver, capacity, plates, desc, eventID) {
   console.log("CreateGroup")
   const current = new Date();
   const curr_time = current.toLocaleTimeString("en-US");
@@ -141,6 +141,12 @@ export function createGroup(driver, capacity, plates, desc, eventID) {
   set(ref(database, 'groups/' + groupID + '/passengers/' + driverID), driver);
 
   return groupID;
+}
+
+export function updateParent(parent) {
+  parent.setState({
+    update: !parent.update,
+  });
 }
 
 export function editGroupMetadata(driver, maxCapacity, description, groupID) {

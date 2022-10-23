@@ -1,8 +1,7 @@
 .content {
-    margin: auto;
-    width: 500px;
-    margin-top: 100px;
+    margin-top: 20px;
     margin-bottom: 20px;
+    margin: auto;
 }
 
 .box {
@@ -19,15 +18,8 @@
     padding: 2.5% 5% 0%;
   }
 
-ul {
+ul { 
     padding-left: 20px;
-}
-  
-@media (min-width: 400px) and (max-width:900px) {
-    .content {
-        margin-top: 100px;
-        width: 65%;
-    }
 }
 
 @media (max-width: 400px) {
@@ -35,8 +27,9 @@ ul {
         font-size: 25px;
     }
     .content {
-        margin-top: 30%;
-        width: 90%;
+        margin: auto;
+        width: 80%;
+        margin-top: 5px;
     }
     .item {
         margin: 5px 0;

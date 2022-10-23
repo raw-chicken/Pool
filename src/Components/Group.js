@@ -1,13 +1,15 @@
 import Button from '@mui/material/Button';
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, IconButton } from '@mui/material';
 import React, { Component } from 'react';
 import {withRouter} from '../withRouter';
 import '../css/App.css';
-import { getGroupInfo, addPassenger } from '../firebase/firebase';
+import { getGroupInfo, addPassenger, removeMember, deleteGroup } from '../firebase/firebase';
 import { getUserId, getUserName } from '../Global/UserInfo';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 class Group extends Component {
+
 
   constructor(props) {
     super(props)
@@ -18,11 +20,17 @@ class Group extends Component {
       driver: '',
       count: 0,
       capacity: 0,
-      passengers: {}
+      passengers: {},
+      editMode: false
     };
 
     this.openChat=this.openChat.bind(this);
     getGroupInfo(props.groupID, this);
+  }
+
+  toggleEditMode()
+  {
+    this.setState({editMode: !this.state.editMode});
   }
 
   joinOnClick() {
@@ -35,28 +43,151 @@ class Group extends Component {
   }
 
   openChat = (event) => {
-    this.props.navigate(`/event/${this.state.eventId}/chat/${this.state.id}`)
+    if (this.state.editMode)
+      return;
+
+    this.props.navigate(`/event/${this.state.eventId}/chat/${this.state.id}/${this.state.driver}`)
+  }
+
+  getDriver(driver) {
+    if (!this.state.editMode)
+    { // normal
+      return <h3>
+        {this.state.update && this.state.driver}
+        ({this.state.count}/{this.state.update && this.state.capacity})
+      </h3>
+    }
+    else
+    { // editing 
+      return (
+        <h3>
+          {this.state.update && this.state.driver}
+          ({this.state.count}/{this.state.update && this.state.capacity})
+          <IconButton
+            onMouseDown={e => e.stopPropagation()}
+            onClick={e => {
+              e.stopPropagation();
+              deleteGroup(this.state.eventId, this.state.id)
+              window.location.reload();
+              console.log("I am going to delete the driver " + this.state.driver);
+            }}
+            sx = {{
+              padding: 0,
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </h3>
+      )
+    }
+  }
+
+  getRider(key, rider) {
+    if (!this.state.editMode)
+    { // normal
+      return rider
+    }
+    else
+    { // editing 
+      return (
+        <div>
+          <Typography>
+            { rider }
+            <IconButton
+              onMouseDown={e => e.stopPropagation()}
+              onClick={e => {
+                e.stopPropagation();
+                removeMember(key, this.state.id);
+                getGroupInfo(this.state.id, this);
+              }}
+              sx = {{
+                padding: 0,
+              }}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Typography>
+        </div>
+      )
+    }
+  }
+
+  getEditButton()
+  {
+    if (!this.state.editMode) 
+    { // normal
+      return (
+        <Button 
+          variant="outlined"
+          sx={{
+            color:"#77BB3F", 
+            // backgroundColor:"#77BB3F",
+            borderColor:"#77BB3F",
+            border:1.5, 
+            ':hover': {
+              color:"#F7F7F6", 
+              backgroundColor: '#77BB3F',
+              borderColor:"#77BB3F",
+              border:1.5, 
+            }
+          }} 
+          className="btn change-btn-size"
+          onClick={() => this.toggleEditMode()} 
+        >
+          <Typography variant="h7">Edit</Typography>
+        </Button>
+      )
+    }
+    else
+    {
+      return (
+        <Button 
+          variant="outlined"
+          sx={{
+            color:"#F51112", 
+            // backgroundColor:"#F51112",
+            borderColor:"#F51112",
+            border:1.5, 
+            ':hover': {
+              color:"#F7F7F6", 
+              backgroundColor:"#F51112",
+              borderColor:"#F51112",
+              border:1.5, 
+            }
+          }} 
+          className="btn change-btn-size"
+          onClick={() => this.toggleEditMode()} 
+        >
+          <Typography variant="h7">Edit</Typography>
+        </Button>
+      )
+    } 
   }
   
   render() {
     let count = 0;
     let ridersDisplay = undefined;
-    // console.log("TEST");
     
     // very bad null handling
-    if (this.state.passengers !== undefined) {
+    if (this.state.passengers !== undefined)  {
       ridersDisplay = 
-        Object.values(this.state.passengers).map((rider) =>
-          <li  
-            key={count++}
-            sx={{
-              margin: 0,
-              textAlign: "left",
-            }}
-          >
-            {this.state.update && rider !== this.state.driver && rider}
-          </li>
-        );
+        Object.entries(this.state.passengers).map((entry) => {
+          let key = entry[0];
+          let rider = entry[1];
+          if (rider !== this.state.driver) {
+            return <li  
+              key={count++}
+              sx={{
+                margin: 0,
+                textAlign: "left",
+              }}
+              className="change-text-size"
+            >
+              {this.state.update && rider !== this.state.driver && this.getRider(key, rider)}
+            </li>
+          }
+          return <></>
+        });
     }
 
 
@@ -73,10 +204,11 @@ class Group extends Component {
           ':hover': {
             backgroundColor: '#F7F7F6',
           },
-          width:"100%",
-          margin: 1,
+          width:"90%",
+          marginBottom: 2,
+          marginLeft:2,
         }} 
-        className="horizontal-stack box btn p3"
+        className="horizontal-stack btn"
         onClick={this.openChat}
       >
         {/* left box */}
@@ -88,7 +220,7 @@ class Group extends Component {
             textAlign: "left",
           }}
         >
-          <h3 className="item">{this.state.update && this.state.driver} ({count}/{this.state.update && this.state.capacity})</h3>
+          {this.getDriver()}
           {this.state.update && 
             <ul>
               {ridersDisplay}
@@ -100,53 +232,23 @@ class Group extends Component {
           onClick={e => e.stopPropagation()}
         >
         {/* right box */}
-        <div 
-          // spacing = {5}
-          // sx={{
-          //   display:"flex",
-          //   flexDirection: "column",
-          //   alignContent: 'space-around',
-          // }}
-        >
-          <Button 
-            variant="outlined" 
-            sx={{
-              width: "100px",
-              marginBottom: "15px",
-
-              color:"#77BB3F", 
-              // backgroundColor:"#77BB3F",
-              borderColor:"#77BB3F",
-              border:1.5, 
-              ':hover': {
-                color:"#F7F7F6", 
-                backgroundColor: '#77BB3F',
-                borderColor:"#77BB3F",
-                border:1.5, 
-              }
-            }} 
-            className="btn"
-          >
-            <Typography variant="h7">Edit</Typography>
-          </Button>
+          {this.getEditButton()}
           <Button 
             variant="contained" 
             sx={{
-              width: "100px",
               marginTop: "15px",
-
+              marginBottom: "15px",
               color:"#F7F7F6", 
               backgroundColor:"#77BB3F",
               ':hover': {
               backgroundColor: '#77BB3F',
               }
             }} 
-            className="btn"
+            className="btn change-btn-size"
             onClick={() => this.joinOnClick()}
           >
             <Typography variant="h7">Join</Typography>
           </Button>
-        </div>
         </div>
       </Button>
     )

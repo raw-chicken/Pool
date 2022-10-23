@@ -14,6 +14,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { getGroupInfo } from '../firebase/firebase';
 
 
 function withParams(Component) {
@@ -24,47 +25,40 @@ class Chat extends Component {
     constructor(props) {
       super(props);
       let { id } = this.props.params
+      let { gid } = this.props.params
+      let { name } = this.props.params
       this.state = {
+        update: false,
         chats: {},
         content: '',
         readError: null,
         writeError: null,
         loadingChats: false,
-        groupId: id,
         infoVisible: false,
-        setOpen: false
+        setOpen: false,
+        eventID: id,
+        groupID: gid,
+        driver: name,
+        desc: 'temp',
+        passengers: {},
       };
+      getGroupInfo(this.state.groupID, this)
       this.myRef = React.createRef();
-      this.handleMouseDown = this.handleMouseDown.bind(this);
-      this.toggelMenu = this.toggelMenu.bind(this)
+      
+    //   this.handleClose = this.handleClose.bind(this)
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+    //   this.handleClickOpen = this.handleClickOpen(this); 
       
     }
 
-    async componentDidMount() {
-        console.log("did mount")
-        this.setState({ readError: null, loadingChats: true });
-        const chatArea = this.myRef.current;
-        try {
-            const messages = ref(database, 'chats/' + this.state.groupId);
-            onValue(messages, (snapshot) => {
-                // console.log(snapshot.val())
-                this.state.chats = snapshot.val() === null ? {} : snapshot.val()
-                this.setState({ readError: null, loadingChats: false });
-            });
-        } catch (error) {
-            console.log(error)
-            this.setState({ readError: error.message, loadingChats: false });
-        }
-    }
-
     handleClickOpen() {
-        this.state.setOpen(true);
+        console.log("opn")
+        this.setState({setOpen: true})
     };
     
     handleClose() {
-        this.state.setOpen(false);
+        this.setState({setOpen: false})
     };
 
     handleChange(event) {
@@ -73,16 +67,30 @@ class Chat extends Component {
         });
     }
 
+    async componentDidMount() {
+        console.log("did mount")
+        try {
+            const messages = ref(database, 'chats/' + this.state.groupID);
+            onValue(messages, (snapshot) => {
+                // console.log(snapshot.val())
+                this.state.chats = snapshot.val() === null ? {} : snapshot.val()
+            });
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+
     async handleSubmit(event) {
         event.preventDefault();
-        this.setState({ writeError: null });
         const chatArea = this.myRef.current;
         try {
             //TODO Need to get the name and group id
             console.log("Submit clicked")
             const username = getUserName()
             console.log(username)
-            addMessage(username, this.state.content, this.state.groupId)
+            addMessage(username, this.state.content, this.state.groupID)
             this.setState({ content: '' });
             chatArea.scrollBy(0, chatArea.scrollHeight);
         } catch (error) {
@@ -90,74 +98,80 @@ class Chat extends Component {
         }
     }
 
+    
+
     render() {
+        console.log('passengers', this.state.passengers);
+        let count2 = 1000;
+        let temp = Object.entries(this.state.passengers).map((entry) => {
+            console.log('temp', entry)
+            let key = entry[0];
+            let count = 0
+            let rider = entry[1];
+            return <li  key={count2++}
+                sx={{
+                    margin: 0,
+                    textAlign: "left",
+                }}
+                className="change-text-size">
+                {rider}
+                </li>
+        });
         console.log(this.state.infoVisible)
         return (
         <div>
             <Header />
             <div className="content">
-            <h1>Chat</h1>
+            <h1>{this.state.driver}'s Carpool</h1>
+
+        <Button 
+        variant="contained" 
+        size ="large"
+        sx={{
+          width: "95%",
+          marginTop: 2,
+          marginBottom: 2,
+          color:"#F7F7F6", 
+          backgroundColor:"#77BB3F",
+          ':hover': {
+              backgroundColor: '#77BB3F',
+          },
+          borderRadius: 10,
+        }} 
+            className="btn"
+            onClick={() => this.handleClickOpen()}>
+            <Typography variant="h7">
+            View Driver Information
+            </Typography>
+        </Button>
+
             <Dialog fullWidth open={this.state.setOpen} onClose={() => this.handleClose()}>
-            <DialogTitle>Add Driver</DialogTitle>
+            <DialogTitle>Driver Information</DialogTitle>
             <DialogContent>
             <DialogContentText>
-                Please fill in the information below to add a new driver
+                Driver: {this.state.driver} 
             </DialogContentText>
-            <p>Driver: {</p> 
-            <TextField
-                autoFocus
-                margin="dense"
-                id="car"
-                label="Car Model"
-                value={model}
-                onChange={ event =>
-                setModel(event.target.value)
-                }
-                fullWidth
-                variant="standard"
-            />
-            <TextField
-                autoFocus
-                margin="dense"
-                id="plate"
-                label="Liscence Plate"
-                value={plates}
-                onChange={ event =>
-                setPlates(event.target.value)
-                }
-                fullWidth
-                variant="standard"
-            />
-            <TextField
-                autoFocus
-                margin="dense"
-                id="notes"
-                label="Notes"
-                value={notes}
-                onChange={ event =>
-                setNotes(event.target.value)
-                }
-                fullWidth
-                variant="standard"
-            />
-            <TextField
-                autoFocus
-                margin="dense"
-                id="capacity"
-                label="Maximum Capacity"
-                value={capacity}
-                onChange={ event =>
-                setCapacity(event.target.value)
-                }
-                fullWidth
-                variant="standard"
-            />
+            <DialogContentText>
+                License Plate: {this.state.plate}
+            </DialogContentText>
+            <DialogContentText>
+                Capacity: {this.state.capacity}
+            </DialogContentText>
+            <DialogContentText>
+                {console.log("State", this.state)} 
+                {console.log("Desc", this.state.desc)}
+                Description: {this.state.desc}
+            </DialogContentText>
+            <DialogContentText>
+                Passengers: <br></br> {temp}
+            </DialogContentText>
             </DialogContent>
             <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleClose}>Add</Button>
+            <Button onClick={() => this.handleClose()}>Done</Button>
             </DialogActions>
             </Dialog>
+            
+            
             <div className="chat-area">
             {Object.entries(this.state.chats).map(([time, message]) => {
                 //TODO: Need to get the user's Name ID
@@ -170,7 +184,7 @@ class Chat extends Component {
             </div>
             
             <form className="mx-3" onSubmit={this.handleSubmit}>
-            <input type="text" className="form-control" name="content" onChange={this.handleChange} value={this.state.content} ></input>
+            <input type="text" className="form-control input" name="content" onChange={this.handleChange} value={this.state.content} ></input>
             {this.state.error ? <p className="text-danger">{this.state.error}</p> : null}
             <Button 
             type="submit"
