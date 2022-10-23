@@ -35,7 +35,6 @@ class Chat extends Component {
     async componentDidMount() {
         console.log("did mount")
         this.setState({ readError: null, loadingChats: true });
-        const chatArea = this.myRef.current;
         try {
             const messages = ref(database, 'chats/' + this.state.groupId);
             onValue(messages, (snapshot) => {

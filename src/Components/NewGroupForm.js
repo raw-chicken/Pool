@@ -25,6 +25,11 @@ export default function NewGroupForm(props) {
   const handleClose = () => {
     setOpen(false);
     createGroup(driver, capacity, plates, notes, props.eventID);
+    window.location.reload();
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
   };
 
   return (
@@ -52,7 +57,7 @@ export default function NewGroupForm(props) {
           I'm a driver
         </Typography>
       </Button>
-      <Dialog fullWidth open={open} onClose={handleClose}>
+      <Dialog fullWidth open={open} onClose={handleCancel}>
         <DialogTitle>Add Driver</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -119,7 +124,7 @@ export default function NewGroupForm(props) {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleCancel}>Cancel</Button>
           <Button onClick={handleClose}>Add</Button>
         </DialogActions>
       </Dialog>

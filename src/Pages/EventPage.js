@@ -2,8 +2,8 @@ import '../css/App.css';
 import '../css/Event.css';
 
 import React, { Component } from 'react';
-import { Typography } from '@mui/material';
-import Button from '@mui/material/Button';
+import { database } from "../firebase/firebase"
+import { ref, onValue } from "firebase/database";
 
 import Group from "../Components/Group.js"
 import Header from "../Components/Header.js"
@@ -18,13 +18,15 @@ function withParams(Component) {
 }
 
 class EventPage extends Component {
+
   constructor(props) {
     super(props);
     let { id } = this.props.params;
     
     this.state = {
       id: id,
-      update: false,
+      update: 0,
+      loading: false,
       name: "",
       description: "",
       groups: {},
@@ -50,16 +52,18 @@ class EventPage extends Component {
 	}
 
   render() {
+
     let count = 0;
     let groupsDisplay = undefined;
 
     console.log(this.state.groups);
     // Very bad null handling
     if (this.state.groups !== undefined) {
+      console.log("Update", this.state.groups);
       groupsDisplay = Object.keys(this.state.groups).map((group) =>
         <AnimatePresence key={2000 + count}>
           <motion.div key={"eventCard" + count++} {...this.getAnimationProps((count + 1) * 0.1)}>
-            <Group groupID={group} eventID={this.state.id} key={1000 + count++}/>
+            <Group groupID={group} eventID={this.state.id} key={1000 + count}/>
           </motion.div>
         </AnimatePresence>
       )
@@ -93,7 +97,7 @@ class EventPage extends Component {
                 key="eventNewDriver" 
                 {...this.getAnimationProps((count + 4) * 0.1)}
               >
-                <NewGroupForm eventID={this.state.id}/>
+                <NewGroupForm eventID={this.state.id} parent={this}/>
               </motion.div>
             </div>
           </motion.div>

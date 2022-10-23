@@ -43,7 +43,7 @@ class Group extends Component {
     // console.log("TEST");
     
     // very bad null handling
-    if (this.state.passengers !== undefined) {
+    if (this.state.passengers !== undefined && this.state.count > 1) {
       ridersDisplay = 
         Object.values(this.state.passengers).map((rider) =>
           <li  
@@ -87,7 +87,7 @@ class Group extends Component {
             textAlign: "left",
           }}
         >
-          <h3 className="item">{this.state.update && this.state.driver} ({count}/{this.state.update && this.state.capacity})</h3>
+          <h3 className="item">{this.state.update && this.state.driver} ({this.state.count}/{this.state.update && this.state.capacity})</h3>
           {this.state.update && 
             <ul>
               {ridersDisplay}
