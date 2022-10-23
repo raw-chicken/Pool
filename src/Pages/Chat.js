@@ -19,9 +19,7 @@ class Chat extends Component {
       super(props);
       let { id } = this.props.params
       let { gid } = this.props.params
-      console.log("Chat", this.props.params)
-      console.log(id);
-      console.log(gid);
+      let { name } = this.props.params
       this.state = {
         chats: {},
         content: '',
@@ -29,7 +27,8 @@ class Chat extends Component {
         writeError: null,
         loadingChats: false,
         eventID: id,
-        groupID: gid
+        groupID: gid,
+        driver: name,
       };
       this.myRef = React.createRef();
       this.handleChange = this.handleChange.bind(this);
@@ -81,7 +80,7 @@ class Chat extends Component {
         <div>
             <Header />
             <div className="content">
-            <h1>Chat</h1>
+            <h1>{this.state.driver}'s carpool</h1>
             <div className="chat-area">
             {Object.entries(this.state.chats).map(([time, message]) => {
                 //TODO: Need to get the user's Name ID

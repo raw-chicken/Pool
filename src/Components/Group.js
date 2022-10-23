@@ -45,7 +45,7 @@ class Group extends Component {
     if (this.state.editMode)
       return;
 
-    this.props.navigate(`/event/${this.state.eventId}/chat/${this.state.id}`)
+    this.props.navigate(`/event/${this.state.eventId}/chat/${this.state.id}/${this.state.driver}`)
   }
 
   getRider(rider) {
