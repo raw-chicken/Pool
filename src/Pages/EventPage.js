@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 
 import Group from "../Components/Group.js"
 import Header from "../Components/Header.js"
+import NewGroupForm from '../Components/NewGroupForm';
 
 import { useParams } from "react-router-dom";
 import { getEvent } from '../firebase/firebase';
@@ -55,9 +56,9 @@ class EventPage extends Component {
     // Very bad null handling
     if (this.state.groups !== undefined) {
       groupsDisplay = Object.keys(this.state.groups).map((group) =>
-        <AnimatePresence>
+        <AnimatePresence key={2000 + count}>
           <motion.div key={"eventCard" + count++} {...this.getAnimationProps((count + 1) * 0.1)}>
-            <Group groupID={group} eventID={this.state.id} key={count++}/>
+            <Group groupID={group} eventID={this.state.id} key={1000 + count++}/>
           </motion.div>
         </AnimatePresence>
       )
@@ -86,35 +87,12 @@ class EventPage extends Component {
               </div>
 
               { groupsDisplay }
-
-              {/* should add a new group bc new driver on click */}
               
               <motion.div 
                 key="eventNewDriver" 
                 {...this.getAnimationProps((count + 4) * 0.1)}
               >
-                <Button 
-                  variant="contained" 
-                  size ="large"
-                  sx={{
-                    width: "100%",
-                    marginTop: 2,
-                    marginBottom: 2,
-                    color:"#F7F7F6", 
-                    backgroundColor:"#77BB3F",
-                    ':hover': {
-                      backgroundColor: '#77BB3F',
-                    },
-                    borderRadius: 10,
-                  }} 
-                  className="btn"
-                >
-                  <Typography
-                    variant="h7"
-                  >
-                    I'm a driver
-                  </Typography>
-                </Button>
+                <NewGroupForm />
               </motion.div>
             </div>
           </motion.div>
@@ -122,7 +100,6 @@ class EventPage extends Component {
       </AnimatePresence>
     )
   }
-    // console.log(this.props.match.params.id);  
 }
 
 export default withParams(EventPage);
