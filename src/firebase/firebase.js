@@ -81,13 +81,13 @@ export async function getGroupInfo(groupID, page) {
   }).catch((error) => {
     console.error(error);
   });
-
+  
   page.setState({
     update: true,
     id: groupID,
     driver: val.driver,
     capacity: val.capacity,
-    passengers: val.passenger,
+    passengers: val.passengers,
   });
 
   return val;
