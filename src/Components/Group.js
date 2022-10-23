@@ -47,14 +47,15 @@ class Group extends Component {
               ':hover': {
                 backgroundColor: '#F7F7F6',
               },
-              margin: 1
+              width:"100%",
+              margin: 1,
             }} 
             className="stacked box btn p3"
             onClick={this.openChat}
             >
         <h3 className="item">{this.state.update && this.state.driver} ({count}/{this.state.update && this.state.capacity})</h3>
         {this.state.update && ridersDisplay}
-        <div className="item">
+        <div className="item" onMouseDown={e => e.stopPropagation()}>
         <Button 
           variant="contained" 
           size="small"
