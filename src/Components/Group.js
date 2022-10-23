@@ -3,7 +3,7 @@ import { Typography, Box, IconButton } from '@mui/material';
 import React, { Component } from 'react';
 import {withRouter} from '../withRouter';
 import '../css/App.css';
-import { getGroupInfo, addPassenger } from '../firebase/firebase';
+import { getGroupInfo, addPassenger, removeMember } from '../firebase/firebase';
 import { getUserId, getUserName } from '../Global/UserInfo';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -79,7 +79,7 @@ class Group extends Component {
     }
   }
 
-  getRider(rider) {
+  getRider(key, rider) {
     if (!this.state.editMode)
     { // normal
       return rider
@@ -94,7 +94,8 @@ class Group extends Component {
               onMouseDown={e => e.stopPropagation()}
               onClick={e => {
                 e.stopPropagation();
-                console.log("I am going to delete the passenger " + rider);
+                removeMember(key, this.state.id);
+                getGroupInfo(this.state.id, this);
               }}
               sx = {{
                 padding: 0,
@@ -167,8 +168,26 @@ class Group extends Component {
     
     // very bad null handling
     if (this.state.passengers !== undefined)  {
+      // ridersDisplay = 
+      //   Object.values(this.state.passengers).map((rider) => {
+      //     if (rider !== this.state.driver) {
+      //       return <li  
+      //         key={count++}
+      //         sx={{
+      //           margin: 0,
+      //           textAlign: "left",
+      //         }}
+      //         className="change-text-size"
+      //       >
+      //         {this.state.update && rider !== this.state.driver && this.getRider(rider)}
+      //       </li>
+      //     }
+      //   });
+      console.log(Object.entries(this.state.passengers));
       ridersDisplay = 
-        Object.values(this.state.passengers).map((rider) => {
+        Object.entries(this.state.passengers).map((entry) => {
+          let key = entry[0];
+          let rider = entry[1];
           if (rider !== this.state.driver) {
             return <li  
               key={count++}
@@ -178,9 +197,10 @@ class Group extends Component {
               }}
               className="change-text-size"
             >
-              {this.state.update && rider !== this.state.driver && this.getRider(rider)}
+              {this.state.update && rider !== this.state.driver && this.getRider(key, rider)}
             </li>
           }
+          return <></>
         });
     }
 
