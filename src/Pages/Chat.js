@@ -7,7 +7,7 @@ import { ref, onValue } from "firebase/database";
 import { useParams } from "react-router-dom";
 import { getUserName } from '../Global/UserInfo';
 import Button from '@mui/material/Button';
-import { Typography } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -15,6 +15,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { getGroupInfo } from '../firebase/firebase';
+import InfoIcon from '@mui/icons-material/Info';
 
 
 function withParams(Component) {
@@ -108,28 +109,27 @@ class Chat extends Component {
         <div>
             <Header />
             <div className="content">
-            <h1>{this.state.driver}'s Carpool</h1>
+            
+            
+            <div class="horizontal-stack">
+                <h1>{this.state.driver}'s Carpool</h1>
+                
+                <IconButton
+                    aria-label="driver info"
+                    size="large"
+                    sx={{
+                        padding: 0,
+                        color:"#77BB3F",
+                        ':click': {
+                        backgroundColor: 'white',
+                    },
+                    }}
+                    onClick={() => this.handleClickOpen()}
+                >
+                    <InfoIcon />
+                </IconButton>
+            </div>
 
-        <Button 
-        variant="contained" 
-        size ="large"
-        sx={{
-          width: "95%",
-          marginTop: 2,
-          marginBottom: 2,
-          color:"#F7F7F6", 
-          backgroundColor:"#77BB3F",
-          ':hover': {
-              backgroundColor: '#77BB3F',
-          },
-          borderRadius: 10,
-        }} 
-            className="btn"
-            onClick={() => this.handleClickOpen()}>
-            <Typography variant="h7">
-            View Driver Information
-            </Typography>
-        </Button>
 
           <Dialog fullWidth open={this.state.setOpen} onClose={() => this.handleClose()}>
           <DialogTitle>Driver Information</DialogTitle>
@@ -167,31 +167,27 @@ class Chat extends Component {
             })}
             </div>
             
-            <form className="mx-3" onSubmit={this.handleSubmit}>
+            <form className="mx-3 horizontal-stack" onSubmit={this.handleSubmit}>
             <input type="text" className="form-control input" name="content" onChange={this.handleChange} value={this.state.content} ></input>
             {this.state.error ? <p className="text-danger">{this.state.error}</p> : null}
             <Button 
-            type="submit"
-            variant="contained" 
-            size ="small"
-            sx={{
-            marginTop: 2,
-            marginBottom: 2,
-            color:"#F7F7F6", 
-            backgroundColor:"#77BB3F",
-            ':hover': {
-                backgroundColor: '#77BB3F',
-            },
-            borderRadius: 10,
-            }} 
-            className="btn btn-submit"
-        >
-            <Typography
-            variant="h7"
+                type="submit"
+                variant="contained" 
+                size ="small"
+                sx={{
+                marginTop: 2,
+                marginBottom: 2,
+                color:"#F7F7F6", 
+                backgroundColor:"#77BB3F",
+                ':hover': {
+                    backgroundColor: '#77BB3F',
+                },
+                borderRadius: 10,
+                }} 
+                className="btn btn-submit"
             >
-            Send
-            </Typography>
-        </Button>
+                <Typography variant="h7"> Send </Typography>
+            </Button>
             </form>
             </div>
         </div>
