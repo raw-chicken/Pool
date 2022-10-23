@@ -8,8 +8,8 @@ import { getUserName } from '../Global/UserInfo';
 
 
 function withParams(Component) {
-    return props => <Component {...props} params={useParams()} />;
-  }
+  return props => <Component {...props} params={useParams()} />;
+}
 
 class Chat extends Component {
     constructor(props) {

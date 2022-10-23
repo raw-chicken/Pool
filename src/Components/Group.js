@@ -28,16 +28,15 @@ class Group extends Component {
     if (this.state.count >= this.state.capacity) return;
     const username = getUserName()
     const userId = getUserId()
-    console.log("clicked")
-    console.log(username, userId)
     addPassenger(this.state.id, username, userId)
-    this.setState({update: true})
+    // this.setState({update: true})
     getGroupInfo(this.state.id, this)
   }
 
   openChat = (event) => {
     this.props.navigate(`/event/${this.state.eventId}/chat/${this.state.id}`)
   }
+  
   render() {
     let count = 0;
     let ridersDisplay = undefined;

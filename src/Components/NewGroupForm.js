@@ -7,9 +7,16 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { createGroup } from '../firebase/firebase';
 
-export default function NewGroupForm() {
+export default function NewGroupForm(props) {
   const [open, setOpen] = React.useState(false);
+
+  const [driver, setDriver] = React.useState("");
+  const [model, setModel] = React.useState("");
+  const [plates, setPlates] = React.useState("");
+  const [notes, setNotes] = React.useState("");
+  const [capacity, setCapacity] = React.useState(0);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -17,35 +24,34 @@ export default function NewGroupForm() {
 
   const handleClose = () => {
     setOpen(false);
-    //create the group
-
+    createGroup(driver, capacity, plates, notes, props.eventID);
   };
 
   return (
     <div>
       <Button 
-            variant="contained" 
-            size ="large"
-            sx={{
-            width: "100%",
-            marginTop: 2,
-            marginBottom: 2,
-            color:"#F7F7F6", 
-            backgroundColor:"#77BB3F",
-            ':hover': {
-                backgroundColor: '#77BB3F',
-            },
-            borderRadius: 10,
-            }} 
-            className="btn"
-            onClick={handleClickOpen}
+        variant="contained" 
+        size ="large"
+        sx={{
+          width: "100%",
+          marginTop: 2,
+          marginBottom: 2,
+          color:"#F7F7F6", 
+          backgroundColor:"#77BB3F",
+          ':hover': {
+              backgroundColor: '#77BB3F',
+          },
+          borderRadius: 10,
+        }} 
+        className="btn"
+        onClick={handleClickOpen}
+      >
+        <Typography
+          variant="h7"
         >
-            <Typography
-            variant="h7"
-            >
-            I'm a driver
-            </Typography>
-        </Button>
+          I'm a driver
+        </Typography>
+      </Button>
       <Dialog fullWidth open={open} onClose={handleClose}>
         <DialogTitle>Add Driver</DialogTitle>
         <DialogContent>
@@ -57,7 +63,10 @@ export default function NewGroupForm() {
             margin="dense"
             id="driver"
             label="Driver"
-            fullWidth
+            value={driver}
+            onChange={ event =>
+              setDriver(event.target.value)
+            }
             variant="standard"
           />
           <TextField
@@ -65,6 +74,10 @@ export default function NewGroupForm() {
             margin="dense"
             id="car"
             label="Car Model"
+            value={model}
+            onChange={ event =>
+              setModel(event.target.value)
+            }
             fullWidth
             variant="standard"
           />
@@ -73,6 +86,10 @@ export default function NewGroupForm() {
             margin="dense"
             id="plate"
             label="Liscence Plate"
+            value={plates}
+            onChange={ event =>
+              setPlates(event.target.value)
+            }
             fullWidth
             variant="standard"
           />
@@ -81,6 +98,22 @@ export default function NewGroupForm() {
             margin="dense"
             id="notes"
             label="Notes"
+            value={notes}
+            onChange={ event =>
+              setNotes(event.target.value)
+            }
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="capacity"
+            label="Maximum Capacity"
+            value={capacity}
+            onChange={ event =>
+              setCapacity(event.target.value)
+            }
             fullWidth
             variant="standard"
           />

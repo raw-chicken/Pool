@@ -92,7 +92,7 @@ class EventPage extends Component {
                 key="eventNewDriver" 
                 {...this.getAnimationProps((count + 4) * 0.1)}
               >
-                <NewGroupForm />
+                <NewGroupForm eventID={this.state.id}/>
               </motion.div>
             </div>
           </motion.div>

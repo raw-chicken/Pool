@@ -93,7 +93,7 @@ export async function getGroupInfo(groupID, page) {
   return val;
 }
 
-export async function addPassenger(groupID, userName, userId) {
+export function addPassenger(groupID, userName, userId) {
   console.log(userId)
   update(ref(database, 'groups/' + groupID + "/passengers"), {
     [userId]: userName
@@ -112,11 +112,16 @@ export function editEvent(eventID, name, desc, date, time) {
   return update(ref(database), updates);
 }
 
-export function createGroup(driver, maxCapacity, desc, eventID) {
+export function createGroup(driver, capacity, plates, desc, eventID) {
+  console.log("CreateGroup")
   const current = new Date();
   const curr_time = current.toLocaleTimeString("en-US");
 
-  const plain_text = curr_time + driver + maxCapacity + desc + eventID;
+  if (driver === undefined)
+    driver = "driver_" + crypto.MD5(curr_time + desc).toString().substring(0,4);
+  
+
+  const plain_text = curr_time + driver + capacity + desc + eventID;
 
   const hash = crypto.MD5(plain_text).toString()
   const groupID = hash.substring(0, 7);
@@ -124,11 +129,12 @@ export function createGroup(driver, maxCapacity, desc, eventID) {
   // A post entry.
   const groupData = {
     driver: driver,
-    maxCapacity: maxCapacity,
+    capacity: capacity,
+    plates: plates,
     desc: desc,
   };
 
-  set(ref(database, 'events/groups/' + groupID), true);
+  set(ref(database, 'events/' + eventID + '/groups/' + groupID), true);
   set(ref(database, 'groups/' + groupID), groupData);
 
   return groupID;
