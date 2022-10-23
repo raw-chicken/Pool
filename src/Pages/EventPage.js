@@ -2,9 +2,6 @@ import '../css/App.css';
 import '../css/Event.css';
 
 import React, { Component } from 'react';
-import { database } from "../firebase/firebase"
-import { ref, onValue } from "firebase/database";
-
 import Group from "../Components/Group.js"
 import Header from "../Components/Header.js"
 import NewGroupForm from '../Components/NewGroupForm';
@@ -85,7 +82,7 @@ class EventPage extends Component {
           >
           <Header/>
 
-            <div className='content fill-stack'>
+            <div className='content'>
               <div>
                 <h1> {this.state.update && this.state.name } </h1>
                 <p>{ this.state.update && this.state.description } </p>

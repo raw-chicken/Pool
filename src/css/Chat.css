@@ -6,6 +6,10 @@ h1 {
     margin-top: 60px;
   } */
   
+.input {
+  width: 80%
+}
+
   .chat-area {
     height: 90%;
     overflow-y: scroll;

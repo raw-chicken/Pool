@@ -38,7 +38,7 @@ export default function NewGroupForm(props) {
         variant="contained" 
         size ="large"
         sx={{
-          width: "100%",
+          width: "95%",
           marginTop: 2,
           marginBottom: 2,
           color:"#F7F7F6", 

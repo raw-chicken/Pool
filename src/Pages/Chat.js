@@ -89,7 +89,7 @@ class Chat extends Component {
             </div>
             
             <form className="mx-3" onSubmit={this.handleSubmit}>
-            <input type="text" className="form-control" name="content" onChange={this.handleChange} value={this.state.content} ></input>
+            <input type="text" className="form-control input" name="content" onChange={this.handleChange} value={this.state.content} ></input>
             {this.state.error ? <p className="text-danger">{this.state.error}</p> : null}
             <Button 
             type="submit"

@@ -32,9 +32,9 @@ function NewEventPage() {
               mx: 'auto'
             }}
           >
-            {/* <div className="content"> */}
+            <div className="content">
               <Form/>
-            {/* </div> */}
+            </div>
           </Grid>
         </motion.div>
       </AnimatePresence>

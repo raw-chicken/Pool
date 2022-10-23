@@ -40,7 +40,6 @@ class Group extends Component {
   render() {
     let count = 0;
     let ridersDisplay = undefined;
-    // console.log("TEST");
     
     // very bad null handling
     if (this.state.passengers !== undefined && this.state.count > 1) {
@@ -52,6 +51,7 @@ class Group extends Component {
               margin: 0,
               textAlign: "left",
             }}
+            className="change-text-size"
           >
             {this.state.update && rider !== this.state.driver && rider}
           </li>
@@ -72,10 +72,11 @@ class Group extends Component {
           ':hover': {
             backgroundColor: '#F7F7F6',
           },
-          width:"100%",
-          margin: 1,
+          width:"90%",
+          marginBottom: 2,
+          marginLeft:2,
         }} 
-        className="horizontal-stack box btn p3"
+        className="horizontal-stack btn"
         onClick={this.openChat}
       >
         {/* left box */}
@@ -110,11 +111,9 @@ class Group extends Component {
           <Button 
             variant="outlined" 
             sx={{
-              width: "100px",
-              marginBottom: "15px",
-
               color:"#77BB3F", 
               // backgroundColor:"#77BB3F",
+              marginTop: "15px",
               borderColor:"#77BB3F",
               border:1.5, 
               ':hover': {
@@ -124,23 +123,22 @@ class Group extends Component {
                 border:1.5, 
               }
             }} 
-            className="btn"
+            className="btn change-btn-size"
           >
             <Typography variant="h7">Edit</Typography>
           </Button>
           <Button 
             variant="contained" 
             sx={{
-              width: "100px",
               marginTop: "15px",
-
+              marginBottom: "15px",
               color:"#F7F7F6", 
               backgroundColor:"#77BB3F",
               ':hover': {
               backgroundColor: '#77BB3F',
               }
             }} 
-            className="btn"
+            className="btn change-btn-size"
             onClick={() => this.joinOnClick()}
           >
             <Typography variant="h7">Join</Typography>
