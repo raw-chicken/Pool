@@ -23,6 +23,11 @@ export class UserInfo {
         return this.myInstance
     }
 
+    static setInstance(username) {
+        this.myInstance = new UserInfo(username);
+        return this.myInstance;
+    }
+
 }
 
 export function getUserId() {
@@ -31,4 +36,8 @@ export function getUserId() {
 
 export function getUserName() {
     return UserInfo.getInstance()._userName;
+}
+
+export function setUserInstance(username) {
+    UserInfo.setInstance(username);
 }
