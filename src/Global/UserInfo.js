@@ -1,23 +1,24 @@
 import crypto from "crypto-js";
 
-class UserInfo {
+export class UserInfo {
 
     myInstance = null;
 
     _userID = "";
     _userName = "";
 
-    constructor() {
-        const newName = prompt("Please insert your name");
-        this._userName = newName;
+    constructor(username) {
+        this._userName = username;
         let date = new Date();
         let curr_time = date.toLocaleDateString("en-US");
-        this._userID = crypto.MD5(newName + curr_time).toString().substring(0, 7)
+        this._userID = crypto.MD5(username + curr_time).toString().substring(0, 7)
+        console.log("created new user " + username + " with userid " + this._userID);
     }
 
     static getInstance() {
         if (this.myInstance === undefined) {
-            this.myInstance = new UserInfo()
+            const newName = prompt("Please insert your name");
+            this.myInstance = new UserInfo(newName)
         }
         return this.myInstance
     }
