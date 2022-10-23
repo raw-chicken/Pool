@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button';
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import React, { Component } from 'react';
 import {withRouter} from '../withRouter';
 import '../css/App.css';
@@ -48,62 +48,78 @@ class Group extends Component {
     return( 
       <Button
         variant="contained" 
-            size="large"
-            sx={{
-              color:"black", 
-              backgroundColor:"#F7F7F6",
-              borderRadius: 5,
-              ':hover': {
-                backgroundColor: '#F7F7F6',
-              },
-              width:"100%",
-              margin: 1,
-            }} 
-            className="stacked box btn p3"
-            onClick={this.openChat}
-            >
-        <h3 className="item">{this.state.update && this.state.driver} ({count}/{this.state.update && this.state.capacity})</h3>
-        {this.state.update && ridersDisplay}
+        size="large"
+        sx={{
+          color:"black", 
+          backgroundColor:"#F7F7F6",
+          borderRadius: 5,
+          ':hover': {
+            backgroundColor: '#F7F7F6',
+          },
+          width:"100%",
+          margin: 1,
+        }} 
+        className="horizontal-stack box btn p3"
+        onClick={this.openChat}
+      >
+        {/* left box */}
+        <Box
+          sx={{
+            // display:"flex",
+            width:"70%"
+          }}
+        >
+          <h3 className="item">{this.state.update && this.state.driver} ({count}/{this.state.update && this.state.capacity})</h3>
+          {this.state.update && ridersDisplay}
+        </Box>
         <div className="item" onMouseDown={e => e.stopPropagation()}>
-        <Button 
-          variant="contained" 
-          size="small"
+        {/* right box */}
+        <Box
           sx={{
-            color:"#F7F7F6", 
-            backgroundColor:"#77BB3F",
-            ':hover': {
-            backgroundColor: '#77BB3F',
-            }
-          }} 
-          className="btn"
-          >
-          <Typography
-            variant="h7"
-          >
-            Edit
-          </Typography>
-        </Button>
-        <Button 
-          variant="contained" 
-          size="small"
-          sx={{
-            color:"#F7F7F6", 
-            backgroundColor:"#77BB3F",
-            ':hover': {
-            backgroundColor: '#77BB3F',
-            }
-          }} 
-          className="btn"
-          onClick={() => this.joinOnClick()}
-          >
-          <Typography
-            variant="h7"
-          >
-            Join
-          </Typography>
-        </Button>
+            // display:"flex",
+            width:"30%"
+          }}
+        >
+          <Button 
+            variant="contained" 
+            size="small"
+            sx={{
+              color:"#F7F7F6", 
+              backgroundColor:"#77BB3F",
+              ':hover': {
+              backgroundColor: '#77BB3F',
+              }
+            }} 
+            className="btn"
+            >
+            <Typography
+              variant="h7"
+            >
+              Edit
+            </Typography>
+          </Button>
+          <Button 
+            variant="contained" 
+            size="small"
+            sx={{
+              color:"#F7F7F6", 
+              backgroundColor:"#77BB3F",
+              ':hover': {
+              backgroundColor: '#77BB3F',
+              }
+            }} 
+            className="btn"
+            onClick={() => this.joinOnClick()}
+            >
+            <Typography
+              variant="h7"
+            >
+              Join
+            </Typography>
+          </Button>
+        </Box>
         </div>
-        </Button>
+      </Button>
     )
   }
 }export default withRouter(Group);
