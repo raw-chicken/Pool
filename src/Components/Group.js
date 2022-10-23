@@ -147,7 +147,7 @@ class Group extends Component {
               }}
               className="change-text-size"
             >
-              {this.state.update && rider !== this.state.driver && rider}
+              {this.state.update && rider !== this.state.driver && this.getRider(rider)}
             </li>
           }
         });
