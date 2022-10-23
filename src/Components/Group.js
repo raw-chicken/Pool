@@ -1,12 +1,14 @@
 import Button from '@mui/material/Button';
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, IconButton } from '@mui/material';
 import React, { Component } from 'react';
 import {withRouter} from '../withRouter';
 import '../css/App.css';
 import { getGroupInfo, addPassenger } from '../firebase/firebase';
 import { getUserId, getUserName } from '../Global/UserInfo';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 class Group extends Component {
+
 
   constructor(props) {
     super(props)
@@ -17,11 +19,17 @@ class Group extends Component {
       driver: '',
       count: 0,
       capacity: 0,
-      passengers: {}
+      passengers: {},
+      editMode: false
     };
 
     this.openChat=this.openChat.bind(this);
     getGroupInfo(props.groupID, this);
+  }
+
+  toggleEditMode()
+  {
+    this.setState({editMode: !this.state.editMode});
   }
 
   joinOnClick() {
@@ -34,7 +42,91 @@ class Group extends Component {
   }
 
   openChat = (event) => {
+    if (this.state.editMode)
+      return;
+
     this.props.navigate(`/event/${this.state.eventId}/chat/${this.state.id}`)
+  }
+
+  getRider(rider) {
+    if (!this.state.editMode)
+    { // normal
+      return rider
+    }
+    else
+    { // editing
+      return (
+        <div>
+          <Typography>
+            { rider }
+            <IconButton
+              onMouseDown={e => e.stopPropagation()}
+              onClick={e => {
+                e.stopPropagation();
+                console.log("I am going to delete the passenger " + rider);
+              }}
+              sx = {{
+                padding: 0,
+              }}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Typography>
+        </div>
+      )
+    }
+  }
+
+  getEditButton()
+  {
+    if (!this.state.editMode) 
+    { // normal
+      return (
+        <Button 
+          variant="outlined"
+          sx={{
+            color:"#77BB3F", 
+            // backgroundColor:"#77BB3F",
+            borderColor:"#77BB3F",
+            border:1.5, 
+            ':hover': {
+              color:"#F7F7F6", 
+              backgroundColor: '#77BB3F',
+              borderColor:"#77BB3F",
+              border:1.5, 
+            }
+          }} 
+          className="btn change-btn-size"
+          onClick={() => this.toggleEditMode()} 
+        >
+          <Typography variant="h7">Edit</Typography>
+        </Button>
+      )
+    }
+    else
+    {
+      return (
+        <Button 
+          variant="outlined"
+          sx={{
+            color:"#F51112", 
+            // backgroundColor:"#F51112",
+            borderColor:"#F51112",
+            border:1.5, 
+            ':hover': {
+              color:"#F7F7F6", 
+              backgroundColor:"#F51112",
+              borderColor:"#F51112",
+              border:1.5, 
+            }
+          }} 
+          className="btn change-btn-size"
+          onClick={() => this.toggleEditMode()} 
+        >
+          <Typography variant="h7">Edit</Typography>
+        </Button>
+      )
+    } 
   }
   
   render() {
@@ -53,7 +145,8 @@ class Group extends Component {
             }}
             className="change-text-size"
           >
-            {this.state.update && rider !== this.state.driver && rider}
+            {this.state.update && rider !== this.state.driver && this.getRider(rider)}
+            
           </li>
         );
     }
@@ -100,33 +193,7 @@ class Group extends Component {
           onClick={e => e.stopPropagation()}
         >
         {/* right box */}
-        <div 
-          // spacing = {5}
-          // sx={{
-          //   display:"flex",
-          //   flexDirection: "column",
-          //   alignContent: 'space-around',
-          // }}
-        >
-          <Button 
-            variant="outlined" 
-            sx={{
-              color:"#77BB3F", 
-              // backgroundColor:"#77BB3F",
-              marginTop: "15px",
-              borderColor:"#77BB3F",
-              border:1.5, 
-              ':hover': {
-                color:"#F7F7F6", 
-                backgroundColor: '#77BB3F',
-                borderColor:"#77BB3F",
-                border:1.5, 
-              }
-            }} 
-            className="btn change-btn-size"
-          >
-            <Typography variant="h7">Edit</Typography>
-          </Button>
+          {this.getEditButton()}
           <Button 
             variant="contained" 
             sx={{
@@ -143,7 +210,6 @@ class Group extends Component {
           >
             <Typography variant="h7">Join</Typography>
           </Button>
-        </div>
         </div>
       </Button>
     )
