@@ -3,7 +3,7 @@ import { Typography, Box, IconButton } from '@mui/material';
 import React, { Component } from 'react';
 import {withRouter} from '../withRouter';
 import '../css/App.css';
-import { getGroupInfo, addPassenger, removeMember } from '../firebase/firebase';
+import { getGroupInfo, addPassenger, removeMember, deleteGroup } from '../firebase/firebase';
 import { getUserId, getUserName } from '../Global/UserInfo';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -66,6 +66,8 @@ class Group extends Component {
             onMouseDown={e => e.stopPropagation()}
             onClick={e => {
               e.stopPropagation();
+              deleteGroup(this.state.eventId, this.state.id)
+              window.location.reload();
               console.log("I am going to delete the driver " + this.state.driver);
             }}
             sx = {{
@@ -163,27 +165,10 @@ class Group extends Component {
   
   render() {
     let count = 0;
-    let riders = undefined;
     let ridersDisplay = undefined;
     
     // very bad null handling
     if (this.state.passengers !== undefined)  {
-      // ridersDisplay = 
-      //   Object.values(this.state.passengers).map((rider) => {
-      //     if (rider !== this.state.driver) {
-      //       return <li  
-      //         key={count++}
-      //         sx={{
-      //           margin: 0,
-      //           textAlign: "left",
-      //         }}
-      //         className="change-text-size"
-      //       >
-      //         {this.state.update && rider !== this.state.driver && this.getRider(rider)}
-      //       </li>
-      //     }
-      //   });
-      console.log(Object.entries(this.state.passengers));
       ridersDisplay = 
         Object.entries(this.state.passengers).map((entry) => {
           let key = entry[0];
