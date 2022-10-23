@@ -1,6 +1,6 @@
-# Pool: a simple carpooling app
+# Pool: A Simple Carpooling App
 
-![logo](./public/pool-transparent.png)
+![logo](./public/pool-transparent.png =250x)
 
 ## Inspiration
 Planning events is already a hassle and transportation is just another problem. For every group, carpooling is ideal for quick transportation. With Pool, we have an easy and convenient way to organize carpooling. No more carpooling spreadsheets and no more coordinating group chats; just set up a Pool and send it to your friends. It’s just that simpool!
