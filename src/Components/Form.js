@@ -79,8 +79,8 @@ class Form extends React.Component {
           <motion.div key="formDesc" {...this.getAnimationProps(0.2)}>
 					<TextValidator
 						id="standard-multiline"
-						label="description"
-                        name="description"
+						label="Description"
+            name="description"
 						multiline
 						rows={3}
 						value={ formData.description }
