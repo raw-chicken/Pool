@@ -8,7 +8,6 @@ import { useParams } from "react-router-dom";
 import { getUserName } from '../Global/UserInfo';
 import Button from '@mui/material/Button';
 import { IconButton, Typography } from '@mui/material';
-import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -16,7 +15,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { getGroupInfo } from '../firebase/firebase';
 import InfoIcon from '@mui/icons-material/Info';
-
 
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
@@ -129,7 +127,6 @@ class Chat extends Component {
                     <InfoIcon />
                 </IconButton>
             </div>
-
 
           <Dialog fullWidth open={this.state.setOpen} onClose={() => this.handleClose()}>
           <DialogTitle>Driver Information</DialogTitle>

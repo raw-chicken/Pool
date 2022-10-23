@@ -1,6 +1,6 @@
-// Import the functions you need from the SDKs you need
+// Import the functions you need from the SDKs you need\n\n
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, update, child, remove, get, push } from "firebase/database";
+import { getDatabase, ref, set, update, remove, get } from "firebase/database";
 import crypto from "crypto-js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -22,7 +22,6 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Realtime Database and get a reference to the service
 export const database = getDatabase(app);
-
 
 /* Actions */
 
@@ -184,29 +183,3 @@ export function addMessage(name, text, groupId) {
     text: text
   })
 }
-
-
-/* End Actions */
-
-/* Listeners */
-
-// Actively listen for database changes on new groups and such
-// groups gets info from firebase
-// updateGroups updates state which in turn adds component to page
-// const groups = ref(database, 'event/' + eventID + '/groups');
-// onValue(groups, (snapshot) => {
-//   const data = snapshot.val();
-//   updateGroups(data);
-// });
-
-
-// Message listeners
-// const messages = ref(database, 'chat/' + groupID);
-// onValue(groups, (snapshot) => {
-//   const data = snapshot.val();
-//   updateMessages(data);
-// });
-
-
-
-/* End Listeners */

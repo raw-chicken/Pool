@@ -54,10 +54,8 @@ class EventPage extends Component {
     let count = 0;
     let groupsDisplay = undefined;
 
-    console.log(this.state.groups);
     // Very bad null handling
     if (this.state.groups !== undefined) {
-      console.log("Update", this.state.groups);
       groupsDisplay = Object.keys(this.state.groups).map((group) =>
         <AnimatePresence key={2000 + count}>
           <motion.div key={"eventCard" + count++} {...this.getAnimationProps((count + 1) * 0.1)}>

@@ -1,15 +1,13 @@
-import Button from '@mui/material/Button';
-import { Typography, Box, IconButton } from '@mui/material';
+import { Button, Typography, Box, IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import React, { Component } from 'react';
 import {withRouter} from '../withRouter';
 import '../css/App.css';
 import { getGroupInfo, addPassenger, removeMember, deleteGroup } from '../firebase/firebase';
 import { UserInfo, getUserId, getUserName } from '../Global/UserInfo';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 
 class Group extends Component {
-
 
   constructor(props) {
     super(props)
@@ -244,7 +242,6 @@ class Group extends Component {
           return <></>
         });
     }
-
 
     return( 
       <Button

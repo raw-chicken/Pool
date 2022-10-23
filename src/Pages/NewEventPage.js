@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import '../css/Event.css';
 
-
 function NewEventPage() {
     document.body.style = 'background: white';
     

@@ -12,7 +12,6 @@ export class UserInfo {
         let date = new Date();
         let curr_time = date.toLocaleDateString("en-US");
         this._userID = crypto.MD5(username + curr_time).toString().substring(0, 7)
-        console.log("created new user " + username + " with userid " + this._userID);
     }
 
     static getInstance() {
