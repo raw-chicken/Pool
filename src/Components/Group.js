@@ -1,17 +1,17 @@
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
 import React, { Component } from 'react';
+import {withRouter} from '../withRouter';
 import '../css/App.css';
 import { getGroupInfo, addPassenger } from '../firebase/firebase';
 import { getUserId, getUserName } from '../Global/UserInfo';
 
-//Join group
-//Make the div clickable (navigates to chat page)
-export default class Group extends Component {
+class Group extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
+      eventId: props.eventID,
       update: false,
       id: props.groupID,
       driver: '',
@@ -19,6 +19,7 @@ export default class Group extends Component {
       passengers: {}
     };
 
+    this.openChat=this.openChat.bind(this);
     getGroupInfo(props.groupID, this);
   }
 
@@ -30,6 +31,9 @@ export default class Group extends Component {
     addPassenger(this.state.id, username, userId)
   }
 
+  openChat = (event) => {
+    this.props.navigate(`/event/${this.state.eventId}/chat/${this.state.id}`)
+  }
   render() {
     let count = 0;
     let ridersDisplay = undefined;
@@ -52,13 +56,15 @@ export default class Group extends Component {
               ':hover': {
                 backgroundColor: '#F7F7F6',
               },
-              margin: 1
+              width:"100%",
+              margin: 1,
             }} 
             className="stacked box btn p3"
+            onClick={this.openChat}
             >
         <h3 className="item">{this.state.update && this.state.driver} ({count}/{this.state.update && this.state.capacity})</h3>
         {this.state.update && ridersDisplay}
-        <div className="item">
+        <div className="item" onMouseDown={e => e.stopPropagation()}>
         <Button 
           variant="contained" 
           size="small"
@@ -100,4 +106,4 @@ export default class Group extends Component {
         </Button>
     )
   }
-}
+}export default withRouter(Group);
