@@ -44,9 +44,18 @@ class Group extends Component {
 
     // very bad null handling
     if (this.state.passengers !== undefined) {
-      ridersDisplay = Object.values(this.state.passengers).map((rider) =>
-        <p className="item" key={count++}>{this.state.update && rider !== this.state.driver && rider}</p>
-      );
+      ridersDisplay = 
+        Object.values(this.state.passengers).map((rider) =>
+          <li  
+            key={count++}
+            sx={{
+              margin: 0,
+              textAlign: "left",
+            }}
+          >
+            {this.state.update && rider !== this.state.driver && rider}
+          </li>
+        );
     }
 
     this.setState({count: count});
@@ -56,6 +65,8 @@ class Group extends Component {
         variant="contained" 
         size="large"
         sx={{
+          display:"flex",
+          flexDirection: "row",
           color:"black", 
           backgroundColor:"#F7F7F6",
           borderRadius: 5,
@@ -71,46 +82,59 @@ class Group extends Component {
         {/* left box */}
         <Box
           sx={{
-            // display:"flex",
-            width:"70%"
+            display:"flex",
+            flexDirection: "column",
+            width:"70%",
+            textAlign: "left",
           }}
         >
           <h3 className="item">{this.state.update && this.state.driver} ({count}/{this.state.update && this.state.capacity})</h3>
-          {this.state.update && ridersDisplay}
+          {this.state.update && 
+            <ul>
+              {ridersDisplay}
+            </ul>
+          }
         </Box>
-        <div className="item" 
+        <div
           onMouseDown={e => e.stopPropagation()}
           onClick={e => e.stopPropagation()}
         >
         {/* right box */}
-        <Box
-          sx={{
-            // display:"flex",
-            width:"30%"
-          }}
+        <div 
+          // spacing = {5}
+          // sx={{
+          //   display:"flex",
+          //   flexDirection: "column",
+          //   alignContent: 'space-around',
+          // }}
         >
           <Button 
-            variant="contained" 
-            size="small"
+            variant="outlined" 
             sx={{
-              color:"#F7F7F6", 
-              backgroundColor:"#77BB3F",
+              width: "100px",
+              marginBottom: "15px",
+
+              color:"#77BB3F", 
+              // backgroundColor:"#77BB3F",
+              borderColor:"#77BB3F",
+              border:1.5, 
               ':hover': {
-              backgroundColor: '#77BB3F',
+                color:"#F7F7F6", 
+                backgroundColor: '#77BB3F',
+                borderColor:"#77BB3F",
+                border:1.5, 
               }
             }} 
             className="btn"
-            >
-            <Typography
-              variant="h7"
-            >
-              Edit
-            </Typography>
+          >
+            <Typography variant="h7">Edit</Typography>
           </Button>
           <Button 
             variant="contained" 
-            size="small"
             sx={{
+              width: "100px",
+              marginTop: "15px",
+
               color:"#F7F7F6", 
               backgroundColor:"#77BB3F",
               ':hover': {
@@ -119,14 +143,10 @@ class Group extends Component {
             }} 
             className="btn"
             onClick={() => this.joinOnClick()}
-            >
-            <Typography
-              variant="h7"
-            >
-              Join
-            </Typography>
+          >
+            <Typography variant="h7">Join</Typography>
           </Button>
-        </Box>
+        </div>
         </div>
       </Button>
     )
