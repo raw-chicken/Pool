@@ -86,12 +86,15 @@ export async function getGroupInfo(groupID, page) {
     id: groupID,
     driver: val.driver,
     capacity: val.capacity,
+    desc: val.desc,
+    plate: val.plates,
     passengers: val.passengers,
     count: Object.keys(val.passengers).length
   });
 
   return val;
 }
+ 
 
 export function addPassenger(groupID, userName, userId) {
   console.log(userId)
