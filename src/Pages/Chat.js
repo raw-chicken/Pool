@@ -81,7 +81,7 @@ class Chat extends Component {
             <div className="chat-area">
             {Object.entries(this.state.chats).map(([time, message]) => {
                 //TODO: Need to get the user's Name ID
-                return <p className={"chat-bubble " + ("" === message.name ? "current-user" : "")} key={time}>
+                return <p className={"chat-bubble " + (getUserName() === message.name ? "current-user" : "")} key={time}>
                 {message.text}
                 <br />
                 <span className="chat-time float-right">{message.name}</span>
