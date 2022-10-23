@@ -117,14 +117,16 @@ export function createGroup(driver, capacity, plates, desc, eventID) {
   const current = new Date();
   const curr_time = current.toLocaleTimeString("en-US");
 
-  if (driver === undefined)
-    driver = "driver_" + crypto.MD5(curr_time + desc).toString().substring(0,4);
-  
+  if (driver === "")
+    driver = "driver_" + crypto.MD5(curr_time).toString().substring(0,4);
 
   const plain_text = curr_time + driver + capacity + desc + eventID;
 
   const hash = crypto.MD5(plain_text).toString()
   const groupID = hash.substring(0, 7);
+
+  const text = curr_time + driver;
+  const driverID = crypto.MD5(text).toString().substring(0, 7);
 
   // A post entry.
   const groupData = {
@@ -136,6 +138,7 @@ export function createGroup(driver, capacity, plates, desc, eventID) {
 
   set(ref(database, 'events/' + eventID + '/groups/' + groupID), true);
   set(ref(database, 'groups/' + groupID), groupData);
+  set(ref(database, 'groups/' + groupID + '/passengers/' + driverID), driver);
 
   return groupID;
 }

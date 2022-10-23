@@ -53,6 +53,7 @@ class EventPage extends Component {
     let count = 0;
     let groupsDisplay = undefined;
 
+    console.log(this.state.groups);
     // Very bad null handling
     if (this.state.groups !== undefined) {
       groupsDisplay = Object.keys(this.state.groups).map((group) =>
