@@ -18,7 +18,7 @@ export default function NewGroupForm() {
   const handleClose = () => {
     setOpen(false);
     //create the group
-    
+
   };
 
   return (
@@ -46,11 +46,11 @@ export default function NewGroupForm() {
             I'm a driver
             </Typography>
         </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog fullWidth open={open} onClose={handleClose}>
         <DialogTitle>Add Driver</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Driver
+            Please fill in the information below to add a new driver
           </DialogContentText>
           <TextField
             autoFocus
@@ -60,9 +60,6 @@ export default function NewGroupForm() {
             fullWidth
             variant="standard"
           />
-          <DialogContentText>
-            Car Model
-          </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
@@ -71,9 +68,6 @@ export default function NewGroupForm() {
             fullWidth
             variant="standard"
           />
-          <DialogContentText>
-            Liscense Plate
-          </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
@@ -82,14 +76,11 @@ export default function NewGroupForm() {
             fullWidth
             variant="standard"
           />
-          <DialogContentText>
-            Notes
-          </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
             id="notes"
-            label="notes"
+            label="Notes"
             fullWidth
             variant="standard"
           />
