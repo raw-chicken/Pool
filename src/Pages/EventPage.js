@@ -4,6 +4,7 @@ import '../css/Event.css';
 import React, { Component } from 'react';
 import Group from "../Components/Group.js"
 import Header from "../Components/Header.js"
+import ShareLink from "../Components/ShareLink.js"
 import NewGroupForm from '../Components/NewGroupForm';
 
 import { useParams } from "react-router-dom";
@@ -84,7 +85,9 @@ class EventPage extends Component {
 
             <div className='content'>
               <div>
-                <h1> {this.state.update && this.state.name } </h1>
+                <div class="horizontal-stack">
+                  <h1> {this.state.update && this.state.name } </h1>
+                  <ShareLink /></div>
                 <p>{ this.state.update && this.state.description } </p>
               </div>
 
