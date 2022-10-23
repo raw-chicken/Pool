@@ -54,7 +54,7 @@ class Group extends Component {
       return rider
     }
     else
-    { // editing
+    { // editing 
       return (
         <div>
           <Typography>
