@@ -131,24 +131,26 @@ class Group extends Component {
   
   render() {
     let count = 0;
+    let riders = undefined;
     let ridersDisplay = undefined;
     
     // very bad null handling
-    if (this.state.passengers !== undefined && this.state.count > 1) {
+    if (this.state.passengers !== undefined)  {
       ridersDisplay = 
-        Object.values(this.state.passengers).map((rider) =>
-          <li  
-            key={count++}
-            sx={{
-              margin: 0,
-              textAlign: "left",
-            }}
-            className="change-text-size"
-          >
-            {this.state.update && rider !== this.state.driver && this.getRider(rider)}
-            
-          </li>
-        );
+        Object.values(this.state.passengers).map((rider) => {
+          if (rider !== this.state.driver) {
+            return <li  
+              key={count++}
+              sx={{
+                margin: 0,
+                textAlign: "left",
+              }}
+              className="change-text-size"
+            >
+              {this.state.update && rider !== this.state.driver && rider}
+            </li>
+          }
+        });
     }
 
 
