@@ -40,7 +40,7 @@ class Group extends Component {
   render() {
     let count = 0;
     let ridersDisplay = undefined;
-    console.log("TEST");
+    // console.log("TEST");
     
     // very bad null handling
     if (this.state.passengers !== undefined) {
@@ -58,7 +58,6 @@ class Group extends Component {
         );
     }
 
-    this.setState({count: count});
 
     return( 
       <Button
