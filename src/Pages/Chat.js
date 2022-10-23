@@ -18,13 +18,18 @@ class Chat extends Component {
     constructor(props) {
       super(props);
       let { id } = this.props.params
+      let { gid } = this.props.params
+      console.log("Chat", this.props.params)
+      console.log(id);
+      console.log(gid);
       this.state = {
         chats: {},
         content: '',
         readError: null,
         writeError: null,
         loadingChats: false,
-        groupId: id
+        eventID: id,
+        groupID: gid
       };
       this.myRef = React.createRef();
       this.handleChange = this.handleChange.bind(this);
