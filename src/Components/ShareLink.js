@@ -43,7 +43,7 @@ export default function ShareLink(props) {
         >
             <ShareIcon />
         </IconButton>
-          <Dialog fullWidth open={open} onClose={handleCancel}>
+          <Dialog open={open} onClose={handleCancel}>
             <DialogTitle>Link copied</DialogTitle>
             <DialogActions>
               <Button onClick={handleClose}>Ok</Button>

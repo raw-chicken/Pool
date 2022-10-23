@@ -60,6 +60,7 @@
   flex-wrap: nowrap;
 
   justify-content: space-between; 
+  align-content: center;
 }
 
 
