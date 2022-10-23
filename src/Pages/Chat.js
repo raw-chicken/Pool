@@ -35,13 +35,13 @@ class Chat extends Component {
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       
-    }
+    }c
 
     async componentDidMount() {
         console.log("did mount")
         this.setState({ readError: null, loadingChats: true });
         try {
-            const messages = ref(database, 'chats/' + this.state.groupId);
+            const messages = ref(database, 'chats/' + this.state.groupID);
             onValue(messages, (snapshot) => {
                 // console.log(snapshot.val())
                 this.state.chats = snapshot.val() === null ? {} : snapshot.val()
@@ -68,7 +68,7 @@ class Chat extends Component {
             console.log("Submit clicked")
             const username = getUserName()
             console.log(username)
-            addMessage(username, this.state.content, this.state.groupId)
+            addMessage(username, this.state.content, this.state.groupID)
             this.setState({ content: '' });
             chatArea.scrollBy(0, chatArea.scrollHeight);
         } catch (error) {
