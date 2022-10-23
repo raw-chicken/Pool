@@ -6,6 +6,7 @@ import '../css/App.css';
 import { getGroupInfo, addPassenger } from '../firebase/firebase';
 import { getUserId, getUserName } from '../Global/UserInfo';
 
+
 class Group extends Component {
 
   constructor(props) {

@@ -8,6 +8,12 @@ import { useParams } from "react-router-dom";
 import { getUserName } from '../Global/UserInfo';
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 
 function withParams(Component) {
@@ -24,9 +30,13 @@ class Chat extends Component {
         readError: null,
         writeError: null,
         loadingChats: false,
-        groupId: id
+        groupId: id,
+        infoVisible: false,
+        setOpen: false
       };
       this.myRef = React.createRef();
+      this.handleMouseDown = this.handleMouseDown.bind(this);
+      this.toggelMenu = this.toggelMenu.bind(this)
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       
@@ -48,6 +58,14 @@ class Chat extends Component {
             this.setState({ readError: error.message, loadingChats: false });
         }
     }
+
+    handleClickOpen() {
+        this.state.setOpen(true);
+    };
+    
+    handleClose() {
+        this.state.setOpen(false);
+    };
 
     handleChange(event) {
         this.setState({
@@ -73,11 +91,73 @@ class Chat extends Component {
     }
 
     render() {
+        console.log(this.state.infoVisible)
         return (
         <div>
             <Header />
             <div className="content">
             <h1>Chat</h1>
+            <Dialog fullWidth open={this.state.setOpen} onClose={() => this.handleClose()}>
+            <DialogTitle>Add Driver</DialogTitle>
+            <DialogContent>
+            <DialogContentText>
+                Please fill in the information below to add a new driver
+            </DialogContentText>
+            <p>Driver: {</p> 
+            <TextField
+                autoFocus
+                margin="dense"
+                id="car"
+                label="Car Model"
+                value={model}
+                onChange={ event =>
+                setModel(event.target.value)
+                }
+                fullWidth
+                variant="standard"
+            />
+            <TextField
+                autoFocus
+                margin="dense"
+                id="plate"
+                label="Liscence Plate"
+                value={plates}
+                onChange={ event =>
+                setPlates(event.target.value)
+                }
+                fullWidth
+                variant="standard"
+            />
+            <TextField
+                autoFocus
+                margin="dense"
+                id="notes"
+                label="Notes"
+                value={notes}
+                onChange={ event =>
+                setNotes(event.target.value)
+                }
+                fullWidth
+                variant="standard"
+            />
+            <TextField
+                autoFocus
+                margin="dense"
+                id="capacity"
+                label="Maximum Capacity"
+                value={capacity}
+                onChange={ event =>
+                setCapacity(event.target.value)
+                }
+                fullWidth
+                variant="standard"
+            />
+            </DialogContent>
+            <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleClose}>Add</Button>
+            </DialogActions>
+            </Dialog>
             <div className="chat-area">
             {Object.entries(this.state.chats).map(([time, message]) => {
                 //TODO: Need to get the user's Name ID

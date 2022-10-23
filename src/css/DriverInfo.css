@@ -1,0 +1,57 @@
+#roundButton {
+    background-color: #96D9FF;
+    margin-bottom: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 10px solid #0065A6;
+    outline: none;
+    transition: all .2s cubic-bezier(0, 1.26, .8, 1.28);
+}
+   
+#roundButton:hover {
+    background-color: #96D9FF;
+    cursor: pointer;
+    border-color: #003557;
+    transform: scale(1.2, 1.2);
+}
+
+#roundButton:active {
+    border-color: #003557;
+    background-color: #FFF;
+}
+
+#flyoutMenu.hide {
+    background-color: #F00F;
+    transform: translate3d(-100vw, 0, 0);
+}
+
+#flyoutMenu.show {
+    background-color: #122F11;
+    transform: translate3d(0vw, 0, 0);
+    /* overflow: hidden; */
+}
+
+#flyoutMenu {
+    width: 50vw;
+    height: 100vh;
+    background-color: #FFF600;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: transform 2s;
+    overflow: scroll;
+    z-index: 1000;
+}
+ 
+
+ 
+#flyoutMenu h2 a {
+    color: #333;
+    margin-left: 15px;
+    text-decoration: none;
+}
+ 
+#flyoutMenu h2 a:hover {
+    text-decoration: underline;
+}
