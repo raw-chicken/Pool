@@ -16,7 +16,7 @@ export default function NewGroupForm(props) {
   const [model, setModel] = React.useState("");
   const [plates, setPlates] = React.useState("");
   const [notes, setNotes] = React.useState("");
-  const [capacity, setCapacity] = React.useState(0);
+  const [capacity, setCapacity] = React.useState(5);
 
   const handleClickOpen = () => {
     setOpen(true);
