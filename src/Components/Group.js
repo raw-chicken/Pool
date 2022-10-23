@@ -72,7 +72,10 @@ class Group extends Component {
           <h3 className="item">{this.state.update && this.state.driver} ({count}/{this.state.update && this.state.capacity})</h3>
           {this.state.update && ridersDisplay}
         </Box>
-        <div className="item" onMouseDown={e => e.stopPropagation()}>
+        <div className="item" 
+          onMouseDown={e => e.stopPropagation()}
+          onClick={e => e.stopPropagation()}
+        >
         {/* right box */}
         <Box
           sx={{
