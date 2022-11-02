@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need\n\n
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, update, remove, get } from "firebase/database";
+import { getDatabase, ref, set, update, remove, get, onValue } from "firebase/database";
 import crypto from "crypto-js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -182,4 +182,16 @@ export function addMessage(name, text, groupId) {
     name: name,
     text: text
   })
+}
+
+export function mountChat(state) {
+    try {
+        const messages = ref(database, 'chats/' + state.state.groupID);
+        return onValue(messages, (snapshot) => {
+            state.state.chats = snapshot.val() === null ? {} : snapshot.val()
+        });
+    } catch (error) {
+        console.log(error)
+    }
+    return "Mount failed";
 }
