@@ -3,7 +3,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import React, { Component } from 'react';
 import {withRouter} from '../withRouter';
 import '../css/App.css';
-import { getGroupInfo, addPassenger, removeMember, deleteGroup } from '../firebase/firebase';
+import { getGroupInfo, addPassenger, removePassenger, deleteGroup } from '../firebase/firebase';
 import { UserInfo, getUserId, getUserName } from '../Global/UserInfo';
 
 
@@ -94,7 +94,7 @@ class Group extends Component {
               onMouseDown={e => e.stopPropagation()}
               onClick={e => {
                 e.stopPropagation();
-                removeMember(key, this.state.id);
+                removePassenger(key, this.state.id);
                 getGroupInfo(this.state.id, this);
               }}
               sx = {{
