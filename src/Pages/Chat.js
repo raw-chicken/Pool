@@ -2,8 +2,7 @@ import '../css/Chat.css';
 import Header from "../Components/Header.js"
 
 import React, { Component } from "react";
-import { database, addMessage } from "../firebase/firebase"
-import { ref, onValue } from "firebase/database";
+import { addMessage, mountChat } from "../firebase/firebase"
 import { useParams } from "react-router-dom";
 import { getUserName } from '../Global/UserInfo';
 import Button from '@mui/material/Button';
@@ -70,14 +69,7 @@ class Chat extends Component {
     }
 
     async componentDidMount() {
-        try {
-            const messages = ref(database, 'chats/' + this.state.groupID);
-            onValue(messages, (snapshot) => {
-                this.state.chats = snapshot.val() === null ? {} : snapshot.val()
-            });
-        } catch (error) {
-            console.log(error)
-        }
+        mountChat(this);
     }
 
     async handleSubmit(event) {

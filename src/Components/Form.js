@@ -92,7 +92,7 @@ class Form extends React.Component {
 					<Box 
 						sx={{ 
 							display: 'flex',
-							justifyContent: 'space-around' 
+							justifyContent: 'space-evenly' 
 						}}
 					>
             <motion.div key="formDate" {...this.getAnimationProps(0.3)}>

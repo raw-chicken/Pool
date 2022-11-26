@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need\n\n
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, update, remove, get } from "firebase/database";
+import { getDatabase, ref, set, update, remove, get, onValue } from "firebase/database";
 import crypto from "crypto-js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -23,7 +23,8 @@ const app = initializeApp(firebaseConfig);
 // Initialize Realtime Database and get a reference to the service
 export const database = getDatabase(app);
 
-/* Actions */
+
+/* Event Functions */
 
 // Given a description, create an event
 export function createEvent(name, desc, date, time) {
@@ -149,11 +150,23 @@ export function editGroup(driver, capacity, model, plates, desc, groupID) {
   return update(ref(database), updates)
 }
 
-export function updateParent(parent) {
-  parent.setState({
-    update: !parent.update,
-  });
-}
+// export function updateParent(parent) {
+//   parent.setState({
+//     update: !parent.update,
+//   });
+//   page.setState({
+//     update: true,
+//     id: groupID,
+//     driver: val.driver,
+//     capacity: val.capacity,
+//     desc: val.desc,
+//     plate: val.plates,
+//     passengers: val.passengers,
+//     count: Object.keys(val.passengers).length
+//   });
+
+//   return val;
+// }
 
 export function deleteGroup(eventID, groupID) {
   remove(ref(database, 'events/' + eventID + '/groups/' + groupID));
@@ -161,23 +174,14 @@ export function deleteGroup(eventID, groupID) {
   remove(ref(database, 'chats/' + groupID));
 }
 
-export function addMember(name, groupID) {
-  const current = new Date();
-  const curr_time = current.toLocaleTimeString("en-US");
-
-  const plain_text = curr_time + name + groupID;
-
-  const hash = crypto.MD5(plain_text).toString()
-  const memberID = hash.substring(0, 7);
-
-  set(ref(database, 'groups/' + groupID + '/passengers/' + memberID), name);
-
-  return memberID;
-}
-
-export function removeMember(memberID, groupID) {
+export function removePassenger(memberID, groupID) {
   remove(ref(database, 'groups/' + groupID + '/passengers/' + memberID));
 }
+
+
+/* End Group Functions */
+
+/* Chat Functions */
 
 export function addMessage(name, text, groupId) {
   const time = new Date()
@@ -186,3 +190,17 @@ export function addMessage(name, text, groupId) {
     text: text
   })
 }
+
+export function mountChat(state) {
+    try {
+        const messages = ref(database, 'chats/' + state.state.groupID);
+        return onValue(messages, (snapshot) => {
+            state.state.chats = snapshot.val() === null ? {} : snapshot.val()
+        });
+    } catch (error) {
+        console.log(error)
+    }
+    return "Mount failed";
+}
+
+/* End Chat Functions */
