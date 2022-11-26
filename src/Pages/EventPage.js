@@ -23,15 +23,13 @@ class EventPage extends Component {
     
     this.state = {
       id: id,
-      update: 0,
       loading: false,
       name: "",
       description: "",
       groups: {},
     }
 
-    getEvent(this.state.id, this);
-    
+    getEvent(id, this);
   }
   
 	getAnimationProps = (i) => {
@@ -67,40 +65,29 @@ class EventPage extends Component {
 
     return(
       <AnimatePresence>
-        {this.state.update && (
-          <motion.div
-            key="newEventPage"
-            initial={{ opacity: 0 }}
-            animate={{ 
-              opacity: 1,
-              transition: {
-                // delay: 0.2,
-              }
-            }}
-            exit={{ opacity: 0 }}
-          >
-          <Header/>
-
-            <div className='content'>
-              <div>
-                <div className="horizontal-stack">
-                  <h1> {this.state.update && this.state.name } </h1>
-                  <ShareLink />
-                </div>
-                <p>{ this.state.update && this.state.description } </p>
-              </div>
-
-              { groupsDisplay }
-              
-              <motion.div 
-                key="eventNewDriver" 
-                {...this.getAnimationProps((count + 4) * 0.1)}
-              >
-                <NewGroupForm eventID={this.state.id} parent={this}/>
-              </motion.div>
+        <motion.div
+          key="newEventPage"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <Header />
+          <div className='content'>
+            <div className="horizontal-stack">
+              <h1>{ this.state.name }</h1>
+              <ShareLink />
             </div>
-          </motion.div>
-        )}
+            <p>{ this.state.description }</p>
+
+            { groupsDisplay }
+            
+            <motion.div 
+              key="eventNewDriver" 
+              {...this.getAnimationProps((count + 4) * 0.1)}
+            >
+              <NewGroupForm eventID={this.state.id} parent={this}/>
+            </motion.div>
+          </div>
+        </motion.div>
       </AnimatePresence>
     )
   }

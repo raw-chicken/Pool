@@ -35,16 +35,16 @@ export default function EditGroupForm(props) {
   return (
     <div>
       <IconButton
-          aria-label="driver info"
-          size="large"
-          sx={{
-              padding: 0,
-              color:"#77BB3F",
-              ':click': {
-              backgroundColor: 'white',
+        aria-label="driver info"
+        size="large"
+        sx={{
+          padding: 0,
+          color:"#77BB3F",
+          ':click': {
+            backgroundColor: 'white',
           },
-          }}
-          onClick={handleClickOpen}
+        }}
+        onClick={handleClickOpen}
       >
         <EditIcon />
       </IconButton>
