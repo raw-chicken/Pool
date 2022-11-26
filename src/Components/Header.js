@@ -6,41 +6,35 @@ export default function Header() {
 
   const displayDesktop = () => {
     return <Toolbar
-        sx = {{
-            backgroundColor: '#77BB3F'
-        }}
+      sx = {{
+        backgroundColor: '#77BB3F'
+      }}
     >
-        {poolLogo}
+      {poolLogo}
     </Toolbar>;
   };
 
   const poolLogo = (
-    // <Box>
-        
-        <Button
-          size="small"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          href="/"
-          // sx={{ 
-          //   alignItems: 'center',
-          // }}
-        >
-          <Box
-            className="d-flex"
-            component="img"
-            sx={{
-              height: 50,
-              width: 100,
-            }}
-            src={require("../Assets/pool-transparent-large-text.png")}
-          />
-        </Button>
-    // </Box>
+    <Button
+      size="small"
+      edge="start"
+      color="inherit"
+      aria-label="menu"
+      href="/"
+    >
+      <Box
+        className="d-flex"
+        component="img"
+        sx={{
+          height: 50,
+          width: 100,
+        }}
+        src={require("../Assets/pool-transparent-large-text.png")}
+      />
+    </Button>
   );
   
   return (
-    <AppBar>{displayDesktop()}</AppBar>
+    <AppBar>{ displayDesktop() }</AppBar>
   );
 }

@@ -1,13 +1,16 @@
+import '../css/Form.css';
+
 import * as React from 'react';
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { Stack } from '@mui/system';
 import { createGroup } from '../firebase/firebase';
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 export default function NewGroupForm(props) {
   const [open, setOpen] = React.useState(false);
@@ -22,7 +25,7 @@ export default function NewGroupForm(props) {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleSubmit = () => {
     setOpen(false);
     createGroup(driver, capacity, model, plates, notes, props.eventID);
     window.location.reload();
@@ -60,72 +63,88 @@ export default function NewGroupForm(props) {
       <Dialog fullWidth open={open} onClose={handleCancel}>
         <DialogTitle>Add Driver</DialogTitle>
         <DialogContent>
-          <DialogContentText>
+          <DialogContentText className="field">
             Please fill in the information below to add a new driver
           </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="driver"
-            label="Driver"
-            value={driver}
-            onChange={ event =>
-              setDriver(event.target.value)
-            }
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="car"
-            label="Car Model"
-            value={model}
-            onChange={ event =>
-              setModel(event.target.value)
-            }
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="plate"
-            label="Liscence Plate"
-            value={plates}
-            onChange={ event =>
-              setPlates(event.target.value)
-            }
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="notes"
-            label="Notes"
-            value={notes}
-            onChange={ event =>
-              setNotes(event.target.value)
-            }
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="capacity"
-            label="Maximum Capacity"
-            value={capacity}
-            onChange={ event =>
-              setCapacity(event.target.value)
-            }
-            fullWidth
-            variant="standard"
-          />
+          <ValidatorForm
+            onSubmit={handleSubmit}
+            onError={errors => console.log(errors)}
+          >
+            <Stack 
+              spacing={2}
+              justifyContent='center'
+            >
+              <TextValidator
+                required
+                label="Driver"
+                id="driver"
+                variant="standard"
+                className="field"
+                value = {driver}
+                onChange={ event =>
+                  setDriver(event.target.value)
+                }
+                validators={['required']}
+                errorMessages={['this field is required']}
+                sx={{ width: '100%' }}
+              />
+              <TextValidator
+                label="Car Model"
+                name="carModel"
+                id="driver"
+                variant="standard"
+                className="field"
+                value = {model}
+                onChange={ event =>
+                  setModel(event.target.value)
+                }
+                sx={{ width: '100%' }}
+              />
+              <TextValidator
+                label="License Plate"
+                name="licensePlate"
+                id="licensePlate"
+                variant="standard"
+                className="field-2"
+                value = {plates}
+                onChange={ event =>
+                  setPlates(event.target.value)
+                }
+                sx={{ width: '100%' }}
+              />
+              <TextValidator
+                label="Description"
+                name="description"
+                id="description"
+                // variant="standard"
+                className="field"
+                multiline
+                value = {notes}
+                rows={3}
+                onChange={ event =>
+                  setNotes(event.target.value)
+                }
+                sx={{ width: '100%' }}
+              />
+              <TextValidator
+                label="Maximum Capacity"
+                name="capacity"
+                id="capacity"
+                variant="standard"
+                className="field"
+                value = {capacity}
+                onChange={ event =>
+                  setCapacity(event.target.value)
+                }
+                sx={{ width: '40%' }}
+              />
+            </Stack>
+            
+          </ValidatorForm>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCancel}>Cancel</Button>
-          <Button onClick={handleClose}>Add</Button>
+          <Button onClick={handleSubmit}>Add</Button>
         </DialogActions>
       </Dialog>
     </div>

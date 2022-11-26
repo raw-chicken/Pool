@@ -26,8 +26,7 @@ class Group extends Component {
     updateGroupInfo(props.groupID, this);
   }
 
-  toggleEditMode()
-  {
+  toggleEditMode() {
     this.setState({editMode: !this.state.editMode});
   }
 

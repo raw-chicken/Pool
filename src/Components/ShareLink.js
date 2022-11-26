@@ -9,57 +9,53 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 
 export default function ShareLink(props) {
-    const [open, setOpen] = React.useState(false);
-    const copyLink = () => {
-        // const link = window.location.href;
-        // link.select();
-        // document.execCommand('copy');
-        // navigator.clipboard.writeText(link);
+  const [open, setOpen] = React.useState(false);
+  const copyLink = () => {
+    // const link = window.location.href;
+    // link.select();
+    // document.execCommand('copy');
+    // navigator.clipboard.writeText(link);
 
-        var dummy = document.createElement('input'),
-            text = window.location.href;
+    var dummy = document.createElement('input'),
+        text = window.location.href;
 
-        document.body.appendChild(dummy);
-        dummy.value = text;
-        dummy.select();
-        document.execCommand('copy');
-        document.body.removeChild(dummy);
-        setOpen(true);
-    }
+    document.body.appendChild(dummy);
+    dummy.value = text;
+    dummy.select();
+    document.execCommand('copy');
+    document.body.removeChild(dummy);
+    setOpen(true);
+  }
+  
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-    // const handleClickOpen = () => {
-    //     setOpen(true);
-    //   };
+  const handleCancel = () => {
+    setOpen(false);
+  };
     
-      const handleClose = () => {
-        setOpen(false);
-      };
-    
-      const handleCancel = () => {
-        setOpen(false);
-      };
-    
-      return (
-        <div>
-          <IconButton 
-            onClick={copyLink} 
-            color="primary" 
-            aria-label="share link"
-            sx={{
-                color:"#77BB3F",
-                ':click': {
-                backgroundColor: 'white',
-            },
-            }}
-        >
-            <ShareIcon />
-        </IconButton>
-          <Dialog open={open} onClose={handleCancel}>
-            <DialogTitle>Link copied</DialogTitle>
-            <DialogActions>
-              <Button onClick={handleClose}>Ok</Button>
-            </DialogActions>
-          </Dialog>
-        </div>
-      );
+  return (
+    <div>
+      <IconButton 
+        onClick={copyLink} 
+        color="primary" 
+        aria-label="share link"
+        sx={{
+          color:"#77BB3F",
+          ':click': {
+            backgroundColor: 'white',
+          },
+        }}
+      >
+        <ShareIcon />
+      </IconButton>
+      <Dialog open={open} onClose={handleCancel}>
+        <DialogTitle>Link copied</DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose}>Ok</Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
 }

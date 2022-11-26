@@ -17,7 +17,7 @@ function NewEventPage() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <Header/>
+          <Header />
           <Grid
             container
             spacing={0}
@@ -32,12 +32,11 @@ function NewEventPage() {
             }}
           >
             <div className="content">
-              <Form/>
+              <Form />
             </div>
           </Grid>
         </motion.div>
       </AnimatePresence>
-
     );
   }
   

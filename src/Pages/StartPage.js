@@ -24,22 +24,14 @@ function StartPage() {
           mx: 'auto'
         }}
       >
-        
         <motion.div 
           key="mainPage"
           initial={{ opacity: 0 }}
           animate={{
-            // y: 0, 
             opacity: 1, 
-            // transition: {
-            //   staggerChildren: .5,
-            //   duration: 0.7,
-            //   ease: [0.6, -0.05, 0.01, 0.99],
-            // }
           }}
+          className="stacked"
         >
-        <div className="stacked">
-          
           <motion.img 
             key="mainImage"
             src="pool-transparent.png"
@@ -52,9 +44,7 @@ function StartPage() {
                 ease: [0.6, -0.05, 0.01, 0.99],
               }
             }}
-          >
-          </motion.img>
-
+          />
           <motion.div 
             key="mainButton"
             initial={{ y: -50, opacity: 0 }}
@@ -68,33 +58,31 @@ function StartPage() {
               }
             }}
           >
-          <Button 
-            component={Link} 
-            to="/new" 
-            variant="contained" 
-            size="large"
-            sx={{
-              backgroundColor:"#F7F7F6",
-              borderRadius: 25,
-              ':hover': {
-                backgroundColor: '#F7F7F6',
-              }
-            }} 
-            className="btn"
-          >
-            <Typography
-              variant="h5"
+            <Button 
+              component={Link} 
+              to="/new" 
+              variant="contained" 
+              size="large"
               sx={{
-                fontWeight: 'bold',
-                color: '#444'
-              }}
+                backgroundColor:"#F7F7F6",
+                borderRadius: 25,
+                ':hover': {
+                  backgroundColor: '#F7F7F6',
+                }
+              }} 
+              className="btn"
             >
-              Start Planning
-            </Typography>
-          </Button>
+              <Typography
+                variant="h5"
+                sx={{
+                  fontWeight: 'bold',
+                  color: '#444'
+                }}
+              >
+                Start Planning
+              </Typography>
+            </Button>
           </motion.div>
-
-        </div>
         </motion.div>
       </Grid>
     </AnimatePresence>
