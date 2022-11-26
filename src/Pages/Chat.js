@@ -13,8 +13,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { getGroupInfo } from '../firebase/firebase';
+import { updateGroupInfo } from '../firebase/firebase';
 import InfoIcon from '@mui/icons-material/Info';
+import EditGroupForm from '../Components/EditGroupForm';
+
 
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
@@ -25,6 +27,7 @@ class Chat extends Component {
       super(props);
       let { id } = this.props.params
       let { gid } = this.props.params
+      console.log(gid);
       let { name } = this.props.params
       this.state = {
         update: false,
@@ -38,10 +41,11 @@ class Chat extends Component {
         eventID: id,
         groupID: gid,
         driver: name,
+        model: 'temp',
         desc: 'temp',
         passengers: {},
       };
-      getGroupInfo(this.state.groupID, this)
+      updateGroupInfo(this.state.groupID, this)
       this.myRef = React.createRef();
       
     //   this.handleClose = this.handleClose.bind(this)
@@ -92,7 +96,7 @@ class Chat extends Component {
 
     render() {
         let count2 = 1000;
-        let temp = Object.entries(this.state.passengers).map((entry) => {
+        let passengers = Object.entries(this.state.passengers).map((entry) => {
             let rider = entry[1];
             return <li  key={count2++}
                 sx={{
@@ -109,7 +113,7 @@ class Chat extends Component {
             <div className="content">
             
             
-            <div class="horizontal-stack">
+            <div className="horizontal-stack">
                 <h1>{this.state.driver}'s Carpool</h1>
                 
                 <IconButton
@@ -124,15 +128,23 @@ class Chat extends Component {
                     }}
                     onClick={() => this.handleClickOpen()}
                 >
-                    <InfoIcon />
+                  <InfoIcon />
                 </IconButton>
             </div>
 
           <Dialog fullWidth open={this.state.setOpen} onClose={() => this.handleClose()}>
-          <DialogTitle>Driver Information</DialogTitle>
+          <DialogTitle>
+            <div className="horizontal-stack">
+                Driver Information
+                <EditGroupForm parent={this} groupID={this.state.groupID} driver={this.state.driver} model={this.state.model} plates={this.state.plate} notes={this.state.desc} capacity={this.state.capacity}/>
+            </div>
+          </DialogTitle>
           <DialogContent>
           <DialogContentText>
               Driver: {this.state.driver} 
+          </DialogContentText>
+          <DialogContentText>
+              Model: {this.state.model}
           </DialogContentText>
           <DialogContentText>
               License Plate: {this.state.plate}
@@ -144,7 +156,7 @@ class Chat extends Component {
               Description: {this.state.desc}
           </DialogContentText>
           <DialogContentText>
-              Passengers: <br></br> {temp}
+              Passengers: <br></br> {passengers}
           </DialogContentText>
           </DialogContent>
           <DialogActions>

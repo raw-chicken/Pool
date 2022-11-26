@@ -64,7 +64,7 @@ export async function getEvent(eventID, page) {
   return val;
 }
 
-export async function getGroupInfo(groupID, page) {
+export async function updateGroupInfo(groupID, page) {
   let val = "NOTHING TO SEE HERE";
   await get(ref(database, 'groups/' + groupID)).then((snapshot) => {
     if (snapshot.exists()) {
@@ -79,6 +79,7 @@ export async function getGroupInfo(groupID, page) {
     driver: val.driver,
     capacity: val.capacity,
     desc: val.desc,
+    model: val.model,
     plate: val.plates,
     passengers: val.passengers,
     count: Object.keys(val.passengers).length
@@ -106,7 +107,7 @@ export function editEvent(eventID, name, desc, date, time) {
   return update(ref(database), updates);
 }
 
-export async function createGroup(driver, capacity, plates, desc, eventID) {
+export async function createGroup(driver, capacity, model, plates, desc, eventID) {
   const current = new Date();
   const curr_time = current.toLocaleTimeString("en-US");
 
@@ -125,6 +126,7 @@ export async function createGroup(driver, capacity, plates, desc, eventID) {
   const groupData = {
     driver: driver,
     capacity: capacity,
+    model: model,
     plates: plates,
     desc: desc,
   };
@@ -136,20 +138,21 @@ export async function createGroup(driver, capacity, plates, desc, eventID) {
   return groupID;
 }
 
+export function editGroup(driver, capacity, model, plates, desc, groupID) {
+  const updates = {};
+  updates['groups/' + groupID + '/driver'] = driver;
+  updates['groups/' + groupID + '/capacity'] = capacity;
+  updates['groups/' + groupID + '/model'] = model;
+  updates['groups/' + groupID + '/plates'] = plates;
+  updates['groups/' + groupID + '/desc'] = desc;
+
+  return update(ref(database), updates)
+}
+
 export function updateParent(parent) {
   parent.setState({
     update: !parent.update,
   });
-}
-
-export function editGroupMetadata(driver, maxCapacity, description, groupID) {
-  const groupData = {
-    driver: driver,
-    maxCapacity: maxCapacity,
-    desc: description
-  };
-
-  set(ref(database, 'groups/' + groupID), groupData);
 }
 
 export function deleteGroup(eventID, groupID) {
