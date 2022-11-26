@@ -3,7 +3,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import React, { Component } from 'react';
 import {withRouter} from '../withRouter';
 import '../css/App.css';
-import { getGroupInfo, addPassenger, removePassenger, deleteGroup } from '../firebase/firebase';
+import { updateGroupInfo, addPassenger, removePassenger, deleteGroup } from '../firebase/firebase';
 import { UserInfo, getUserId, getUserName } from '../Global/UserInfo';
 
 
@@ -23,7 +23,7 @@ class Group extends Component {
     };
 
     this.openChat=this.openChat.bind(this);
-    getGroupInfo(props.groupID, this);
+    updateGroupInfo(props.groupID, this);
   }
 
   toggleEditMode()
@@ -37,7 +37,7 @@ class Group extends Component {
     const userId = getUserId()
     addPassenger(this.state.id, username, userId)
     // this.setState({update: true})
-    getGroupInfo(this.state.id, this)
+    updateGroupInfo(this.state.id, this)
   }
 
   openChat = (event) => {
@@ -95,7 +95,7 @@ class Group extends Component {
               onClick={e => {
                 e.stopPropagation();
                 removePassenger(key, this.state.id);
-                getGroupInfo(this.state.id, this);
+                updateGroupInfo(this.state.id, this);
               }}
               sx = {{
                 padding: 0,
@@ -207,7 +207,7 @@ class Group extends Component {
             const userID = newUser._userID;
 
             addPassenger(this.state.id, username, userID);
-            getGroupInfo(this.state.id, this);
+            updateGroupInfo(this.state.id, this);
             
           }}
         >

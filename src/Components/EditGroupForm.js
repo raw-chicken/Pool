@@ -1,22 +1,22 @@
 import * as React from 'react';
-import { Typography } from '@mui/material';
+import { IconButton } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { createGroup } from '../firebase/firebase';
+import { editGroup, updateGroupInfo } from '../firebase/firebase';
+import EditIcon from '@mui/icons-material/Edit';
 
-export default function NewGroupForm(props) {
+export default function EditGroupForm(props) {
   const [open, setOpen] = React.useState(false);
 
-  const [driver, setDriver] = React.useState("");
-  const [model, setModel] = React.useState("");
-  const [plates, setPlates] = React.useState("");
-  const [notes, setNotes] = React.useState("");
-  const [capacity, setCapacity] = React.useState(5);
+  const [driver, setDriver] = React.useState(props.driver);
+  const [model, setModel] = React.useState(props.model);
+  const [plates, setPlates] = React.useState(props.plates);
+  const [notes, setNotes] = React.useState(props.notes);
+  const [capacity, setCapacity] = React.useState(props.capacity);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -24,8 +24,8 @@ export default function NewGroupForm(props) {
 
   const handleClose = () => {
     setOpen(false);
-    createGroup(driver, capacity, model, plates, notes, props.eventID);
-    window.location.reload();
+    editGroup(driver, capacity, model, plates, notes, props.groupID);
+    updateGroupInfo(props.groupID, props.parent);
   };
 
   const handleCancel = () => {
@@ -34,35 +34,25 @@ export default function NewGroupForm(props) {
 
   return (
     <div>
-      <Button 
-        variant="contained" 
-        size ="large"
-        sx={{
-          width: "95%",
-          marginTop: 2,
-          marginBottom: 2,
-          color:"#F7F7F6", 
-          backgroundColor:"#77BB3F",
-          ':hover': {
-              backgroundColor: '#77BB3F',
+      <IconButton
+          aria-label="driver info"
+          size="large"
+          sx={{
+              padding: 0,
+              color:"#77BB3F",
+              ':click': {
+              backgroundColor: 'white',
           },
-          borderRadius: 10,
-        }} 
-        className="btn"
-        onClick={handleClickOpen}
+          }}
+          onClick={handleClickOpen}
       >
-        <Typography
-          variant="h7"
-        >
-          I'm a driver
-        </Typography>
-      </Button>
+        <EditIcon />
+      </IconButton>
+
+
       <Dialog fullWidth open={open} onClose={handleCancel}>
-        <DialogTitle>Add Driver</DialogTitle>
+        <DialogTitle>Update Driver Info</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Please fill in the information below to add a new driver
-          </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
@@ -125,7 +115,7 @@ export default function NewGroupForm(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCancel}>Cancel</Button>
-          <Button onClick={handleClose}>Add</Button>
+          <Button onClick={handleClose}>Update</Button>
         </DialogActions>
       </Dialog>
     </div>

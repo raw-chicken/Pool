@@ -83,7 +83,7 @@ class EventPage extends Component {
 
             <div className='content'>
               <div>
-                <div class="horizontal-stack">
+                <div className="horizontal-stack">
                   <h1> {this.state.update && this.state.name } </h1>
                   <ShareLink />
                 </div>
